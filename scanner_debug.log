@@ -1,0 +1,25 @@
+Initializing Scanner...
+Scanning project...
+[Scanner] Starting scan for: temp_test/project.zip
+[Scanner] Extracting temp_test/project.zip to temp_test/extracted\project
+[Scanner] Extraction successful
+[Scanner] Visiting file: temp_test/extracted\project\server.js
+[Scanner] Found 2 endpoints in server.js
+[Scanner] Scan complete. Scanned 1 files. Found 2 total endpoints.
+Scan complete. Found 2 endpoints.
+[
+  {
+    "path": "/api/users",
+    "method": "GET",
+    "description": "Detected GET endpoint at /api/users",
+    "payload_schema": {},
+    "source_file": "temp_test/extracted\\project\\server.js"
+  },
+  {
+    "path": "/api/users",
+    "method": "POST",
+    "description": "Detected POST endpoint at /api/users",
+    "payload_schema": {},
+    "source_file": "temp_test/extracted\\project\\server.js"
+  }
+]

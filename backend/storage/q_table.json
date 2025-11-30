@@ -1,0 +1,72 @@
+{
+    "/api/status": {
+        "standard": -2.1790936,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/api/update-profile": {
+        "standard": -2.1790936,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/forgotPassword": {
+        "standard": -7.6,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/resetPassword": {
+        "standard": -7.6,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/addTask": {
+        "standard": -7.6,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/getTask": {
+        "standard": -7.6,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/removeTask": {
+        "standard": -7.6,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/login": {
+        "standard": -7.6,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/register": {
+        "standard": -7.6,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/getuser": {
+        "standard": -7.6,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    }
+}

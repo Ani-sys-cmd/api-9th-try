@@ -32,13 +32,14 @@ class GitHubHandler:
             return False
         return 'github.com' in url.lower()
     
-    def clone_and_zip(self, github_url: str, token: str = None) -> str:
+    def clone_and_zip(self, github_url: str, token: str = None, upload_dir: str = "storage/uploads") -> str:
         """
         Clone a GitHub repository and convert it to a ZIP file
         
         Args:
             github_url: GitHub repository URL
             token: Optional GitHub Personal Access Token for private repos
+            upload_dir: Directory to save the ZIP file
             
         Returns:
             Path to the created ZIP file
@@ -79,7 +80,7 @@ class GitHubHandler:
                 shutil.rmtree(git_dir, onerror=on_rm_error)
             
             # Create ZIP file
-            zip_path = os.path.join("storage", "uploads", f"{repo_name}.zip")
+            zip_path = os.path.join(upload_dir, f"{repo_name}.zip")
             os.makedirs(os.path.dirname(zip_path), exist_ok=True)
             
             print(f"Creating ZIP file at {zip_path}...")

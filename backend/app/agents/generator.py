@@ -11,7 +11,7 @@ class TestGenerator:
     def __init__(self, test_output_dir: str = "tests/generated"):
         self.test_output_dir = test_output_dir
         os.makedirs(self.test_output_dir, exist_ok=True)
-        self.model = genai.GenerativeModel('gemini-1.5-pro')
+        self.model = genai.GenerativeModel('gemini-2.5-pro')
 
     def _clean_code(self, text: str) -> str:
         """

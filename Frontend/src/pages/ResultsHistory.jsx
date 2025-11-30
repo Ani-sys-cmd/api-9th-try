@@ -10,7 +10,8 @@ const ResultsHistory = () => {
         const fetchHistory = async () => {
             try {
                 const res = await api.getHistory();
-                setHistory(res.data);
+                // Fix: Access res.data.history, default to empty array
+                setHistory(res.data.history || []);
             } catch (err) {
                 console.error("Failed to fetch history", err);
             } finally {
@@ -44,32 +45,37 @@ const ResultsHistory = () => {
                 </div>
             ) : (
                 <div className="space-y-4">
-                    {history.map((run) => (
-                        <div key={run.id} className="glass-panel p-6 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors">
+                    {history.map((run, index) => (
+                        // Fix: Use index as key since id might be missing
+                        <div key={index} className="glass-panel p-6 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-colors">
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 
                                 <div className="flex items-center gap-4">
-                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${run.summary.failed === 0 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${run.summary?.failed === 0 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                                         }`}>
-                                        {run.summary.failed === 0 ? <CheckCircle className="w-6 h-6" /> : <XCircle className="w-6 h-6" />}
+                                        {run.summary?.failed === 0 ? <CheckCircle className="w-6 h-6" /> : <XCircle className="w-6 h-6" />}
                                     </div>
                                     <div>
                                         <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                                            Test Run #{run.id}
-                                            <span className="text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-gray-400">
-                                                {run.execution_time.toFixed(2)}s
-                                            </span>
+                                            Test Run #{history.length - index}
+                                            {/* Fix: Check if execution_time exists */}
+                                            {run.execution_time !== undefined && (
+                                                <span className="text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-gray-400">
+                                                    {run.execution_time.toFixed(2)}s
+                                                </span>
+                                            )}
                                         </h3>
                                         <p className="text-sm text-gray-400 flex items-center gap-2">
                                             <Clock className="w-3 h-3" />
-                                            {new Date(run.timestamp * 1000).toLocaleString()}
+                                            {/* Fix: Handle ISO timestamp correctly */}
+                                            {new Date(run.timestamp).toLocaleString()}
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center gap-6">
                                     <div className="text-center">
-                                        <div className="text-2xl font-bold text-white">{run.reward}</div>
+                                        <div className="text-2xl font-bold text-white">{run.reward ? run.reward.toFixed(1) : '0.0'}</div>
                                         <div className="text-xs text-purple-400 uppercase tracking-wider font-bold">Reward</div>
                                     </div>
 
@@ -77,15 +83,15 @@ const ResultsHistory = () => {
 
                                     <div className="flex gap-4">
                                         <div className="text-center">
-                                            <div className="text-lg font-bold text-green-400">{run.summary.passed}</div>
+                                            <div className="text-lg font-bold text-green-400">{run.summary?.passed || 0}</div>
                                             <div className="text-[10px] text-gray-500 uppercase">Pass</div>
                                         </div>
                                         <div className="text-center">
-                                            <div className="text-lg font-bold text-red-400">{run.summary.failed}</div>
+                                            <div className="text-lg font-bold text-red-400">{run.summary?.failed || 0}</div>
                                             <div className="text-[10px] text-gray-500 uppercase">Fail</div>
                                         </div>
                                         <div className="text-center">
-                                            <div className="text-lg font-bold text-yellow-400">{run.summary.error}</div>
+                                            <div className="text-lg font-bold text-yellow-400">{run.summary?.error || 0}</div>
                                             <div className="text-[10px] text-gray-500 uppercase">Err</div>
                                         </div>
                                     </div>

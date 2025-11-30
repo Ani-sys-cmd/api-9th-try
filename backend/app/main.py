@@ -44,13 +44,24 @@ async def get_current_user_id(x_user_id: Optional[str] = Header(None)):
     return x_user_id
 
 # --- State Management ---
-def get_user_storage_path(user_id: str):
-    path = os.path.join("storage", "users", user_id)
+def get_user_session_path(user_id: str):
+    # Changed to storage/sessions/<user_id>
+    path = os.path.join("storage", "sessions", user_id)
+    os.makedirs(path, exist_ok=True)
+    return path
+
+def get_user_upload_dir(user_id: str):
+    path = os.path.join(get_user_session_path(user_id), "uploads")
+    os.makedirs(path, exist_ok=True)
+    return path
+
+def get_user_extract_dir(user_id: str):
+    path = os.path.join(get_user_session_path(user_id), "extracted")
     os.makedirs(path, exist_ok=True)
     return path
 
 def get_state_file(user_id: str):
-    return os.path.join(get_user_storage_path(user_id), "system_state.json")
+    return os.path.join(get_user_session_path(user_id), "system_state.json")
 
 def load_state(user_id: str):
     state_file = get_state_file(user_id)
@@ -72,6 +83,45 @@ def save_state(new_state, user_id: str):
     state_file = get_state_file(user_id)
     with open(state_file, "w") as f:
         json.dump(new_state, f, indent=4)
+
+def cleanup_user_session(user_id: str):
+    """Deletes the entire session directory for a user."""
+    session_path = get_user_session_path(user_id)
+    if os.path.exists(session_path):
+        try:
+            shutil.rmtree(session_path)
+            print(f"Cleaned up session for user: {user_id}")
+        except Exception as e:
+            print(f"Error cleaning up session for {user_id}: {e}")
+
+def cleanup_previous_uploads(user_id: str):
+    """Deletes previous uploads and extracted files for a user within the session."""
+    upload_dir = get_user_upload_dir(user_id)
+    extract_dir = get_user_extract_dir(user_id)
+    
+    # Clean uploads
+    if os.path.exists(upload_dir):
+        for filename in os.listdir(upload_dir):
+            file_path = os.path.join(upload_dir, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(f"Failed to delete {file_path}. Reason: {e}")
+
+    # Clean extracted
+    if os.path.exists(extract_dir):
+        for filename in os.listdir(extract_dir):
+            file_path = os.path.join(extract_dir, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(f"Failed to delete {file_path}. Reason: {e}")
 
 # --- Helper to Find Test File if State is Broken ---
 def find_test_file(project_name):
@@ -114,16 +164,19 @@ def read_root():
 @app.post("/upload")
 async def upload_project(file: UploadFile = File(...), user_id: str = Depends(get_current_user_id)):
     try:
-        user_storage = get_user_storage_path(user_id)
-        uploads_dir = os.path.join(user_storage, "uploads")
-        os.makedirs(uploads_dir, exist_ok=True)
+        # Cleanup previous session data
+        cleanup_previous_uploads(user_id)
+        
+        uploads_dir = get_user_upload_dir(user_id)
+        extract_dir = get_user_extract_dir(user_id)
         
         file_location = os.path.join(uploads_dir, file.filename)
         
         with open(file_location, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
-        endpoints = scanner.scan_project(file_location)
+        # Pass specific extract_dir to scanner
+        endpoints = scanner.scan_project(file_location, extract_dir)
         
         state = load_state(user_id)
         state["project_name"] = file.filename
@@ -186,9 +239,23 @@ def run_tests(user_id: str = Depends(get_current_user_id)):
         state["latest_results"] = results
         save_state(state, user_id)
         
-        # Save to run history
-        user_storage = get_user_storage_path(user_id)
-        history_file = os.path.join(user_storage, "run_history.json")
+        # Save to run history (Global history for now, or per user?)
+        # User requested session-scoped uploads, but history might be persistent?
+        # "The system keeps old extracted folders even when they are no longer needed."
+        # "Make project uploads SESSION-SCOPED"
+        # History is likely persistent per user, but let's store it in session for now as requested "A user only sees the project they uploaded DURING that session."
+        # Wait, history usually persists. But the prompt says "When the user logs out, the project should be removed."
+        # It doesn't explicitly say delete HISTORY. But it says "Logging out should delete the session folder completely."
+        # If we store history in session folder, it gets deleted.
+        # Let's assume history should persist in a separate "persistent" folder if we wanted it to, but based on "delete the session folder completely", maybe they want a clean slate?
+        # Actually, usually history is persistent.
+        # Let's keep history in `storage/users/<user_id>/run_history.json` (persistent) and project files in `storage/sessions/<user_id>` (ephemeral).
+        
+        # Persistent storage for history
+        persistent_user_storage = os.path.join("storage", "users", user_id)
+        os.makedirs(persistent_user_storage, exist_ok=True)
+        history_file = os.path.join(persistent_user_storage, "run_history.json")
+        
         history = []
         if os.path.exists(history_file):
             try:
@@ -239,17 +306,13 @@ def diagnose_code(request: DiagnoseRequest, user_id: str = Depends(get_current_u
         state = load_state(user_id)
         project_name = state.get("project_name", "server").replace(".zip", "")
         
-        # Heuristic to find the server file
-        # Check user specific extraction path if we were extracting there, but for now assuming global extraction or we need to update scanner/github handler to extract per user.
-        # For now, let's look in the global storage/extracted as that part might not be fully isolated yet without deeper changes to scanner.
-        # However, if we want full isolation, we should probably extract to user storage.
-        # Let's check if we have an upload path in state and derive from there.
-        
-        estimated_path = f"storage/extracted/{project_name}/server.js"
+        # Look in session extracted dir
+        extract_dir = get_user_extract_dir(user_id)
+        estimated_path = os.path.join(extract_dir, project_name, "server.js")
         
         # Check if file exists, if not try to find ANY .js file
         if not os.path.exists(estimated_path):
-             js_files = glob.glob(f"storage/extracted/{project_name}/*.js")
+             js_files = glob.glob(os.path.join(extract_dir, project_name, "*.js"))
              if js_files:
                  estimated_path = js_files[0]
 
@@ -264,13 +327,17 @@ def diagnose_code(request: DiagnoseRequest, user_id: str = Depends(get_current_u
 async def process_github(request: ProcessGitHubRequest, user_id: str = Depends(get_current_user_id)):
     """Process a GitHub repository - clone, zip, and scan for endpoints"""
     try:
+        # Cleanup previous session data
+        cleanup_previous_uploads(user_id)
+        
+        uploads_dir = get_user_upload_dir(user_id)
+        extract_dir = get_user_extract_dir(user_id)
+        
         # Clone and convert to ZIP
-        # Note: GitHubHandler might need updates to support user-specific paths
-        # For now, we'll move the result to user storage if possible, or just use the path returned.
-        zip_path = github_handler.clone_and_zip(request.github_url, request.token)
+        zip_path = github_handler.clone_and_zip(request.github_url, request.token, uploads_dir)
         
         # Scan the project
-        endpoints = scanner.scan_project(zip_path)
+        endpoints = scanner.scan_project(zip_path, extract_dir)
         
         # Extract project name from URL
         repo_name = request.github_url.rstrip('/').split('/')[-1]
@@ -293,13 +360,40 @@ async def process_github(request: ProcessGitHubRequest, user_id: str = Depends(g
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/scan-project")
+async def scan_project_manual(user_id: str = Depends(get_current_user_id)):
+    """Manually trigger a re-scan of the current project"""
+    try:
+        state = load_state(user_id)
+        upload_path = state.get("upload_path")
+        
+        if not upload_path or not os.path.exists(upload_path):
+            raise HTTPException(status_code=400, detail="No project file found. Please upload a project first.")
+            
+        extract_dir = get_user_extract_dir(user_id)
+        
+        # Re-scan
+        endpoints = scanner.scan_project(upload_path, extract_dir)
+        
+        # Update state
+        state["endpoints"] = endpoints
+        save_state(state, user_id)
+        
+        return {
+            "message": "Project re-scanned successfully",
+            "endpoints_found": len(endpoints),
+            "endpoints_data": endpoints
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/dashboard-stats")
 async def get_dashboard_stats(user_id: str = Depends(get_current_user_id)):
     """Get dashboard statistics from run history"""
     try:
-        # Load run history
-        user_storage = get_user_storage_path(user_id)
-        history_file = os.path.join(user_storage, "run_history.json")
+        # Load run history from PERSISTENT storage
+        persistent_user_storage = os.path.join("storage", "users", user_id)
+        history_file = os.path.join(persistent_user_storage, "run_history.json")
         
         if os.path.exists(history_file):
             with open(history_file, "r") as f:
@@ -337,8 +431,9 @@ async def get_dashboard_stats(user_id: str = Depends(get_current_user_id)):
 async def get_history(user_id: str = Depends(get_current_user_id)):
     """Get test execution history"""
     try:
-        user_storage = get_user_storage_path(user_id)
-        history_file = os.path.join(user_storage, "run_history.json")
+        # Load run history from PERSISTENT storage
+        persistent_user_storage = os.path.join("storage", "users", user_id)
+        history_file = os.path.join(persistent_user_storage, "run_history.json")
         
         if os.path.exists(history_file):
             with open(history_file, "r") as f:
@@ -351,3 +446,11 @@ async def get_history(user_id: str = Depends(get_current_user_id)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/logout")
+async def logout(user_id: str = Depends(get_current_user_id)):
+    """Cleans up the user session on logout"""
+    try:
+        cleanup_user_session(user_id)
+        return {"message": "Logged out and session cleaned up"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

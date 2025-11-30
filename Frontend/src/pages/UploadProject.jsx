@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, FileArchive, CheckCircle, AlertCircle, Zap } from 'lucide-react';
+import { Upload, FileArchive, CheckCircle, AlertCircle, Zap, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api';
@@ -217,6 +217,37 @@ const UploadProject = () => {
                 <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center gap-3">
                     <AlertCircle className="w-5 h-5" />
                     <span className="text-sm">{error}</span>
+                </div>
+            )}
+
+            {/* Manual Scan Button - Show if upload success but no endpoints, or just always show for re-scan */}
+            {(status === 'success' || projectState.uploadStatus === 'success') && (
+                <div className="flex justify-end">
+                    <button
+                        onClick={async () => {
+                            setStatus('uploading'); // Reuse uploading state for scanning
+                            setError(null);
+                            try {
+                                const res = await api.scanProject();
+                                const discoveredEndpoints = res.data.endpoints_data || [];
+                                setEndpoints(discoveredEndpoints);
+                                setStatus('success');
+                                setProjectState((prev) => ({
+                                    ...prev,
+                                    endpoints: discoveredEndpoints
+                                }));
+                            } catch (err) {
+                                console.error(err);
+                                const message = err?.response?.data?.detail || err.message || 'Scan failed';
+                                setError(message);
+                                setStatus('error');
+                            }
+                        }}
+                        className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm font-medium transition-colors flex items-center gap-2"
+                    >
+                        <RefreshCw className={`w-4 h-4 ${status === 'uploading' ? 'animate-spin' : ''}`} />
+                        {status === 'uploading' ? 'Scanning...' : 'Re-scan Project'}
+                    </button>
                 </div>
             )}
 

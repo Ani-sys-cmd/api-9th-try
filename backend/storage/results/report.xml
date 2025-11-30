@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="8" time="0.752" timestamp="2025-11-30T21:40:28.184983+05:30" hostname="IdeaPad-Gaming-3"><testcase classname="tests.generated.test_mern-todo-app" name="test_forgot_password" time="0.213"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">base_url = 'http://localhost:5000/api'
+
+    def test_forgot_password(base_url):
+        """
+        Test the POST /forgotPassword endpoint.
+        """
+        url = f"{base_url}/forgotPassword"
+        payload = {}
+        response = requests.post(url, json=payload)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+tests\generated\test_mern-todo-app.py:20: AssertionError</failure></testcase><testcase classname="tests.generated.test_mern-todo-app" name="test_reset_password" time="0.011"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">base_url = 'http://localhost:5000/api'
+
+    def test_reset_password(base_url):
+        """
+        Test the POST /resetPassword endpoint.
+        """
+        url = f"{base_url}/resetPassword"
+        payload = {}
+        response = requests.post(url, json=payload)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+tests\generated\test_mern-todo-app.py:30: AssertionError</failure></testcase><testcase classname="tests.generated.test_mern-todo-app" name="test_add_task" time="0.007"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">base_url = 'http://localhost:5000/api'
+
+    def test_add_task(base_url):
+        """
+        Test the POST /addTask endpoint.
+        """
+        url = f"{base_url}/addTask"
+        payload = {}
+        response = requests.post(url, json=payload)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+tests\generated\test_mern-todo-app.py:40: AssertionError</failure></testcase><testcase classname="tests.generated.test_mern-todo-app" name="test_get_task" time="0.007"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">base_url = 'http://localhost:5000/api'
+
+    def test_get_task(base_url):
+        """
+        Test the GET /getTask endpoint.
+        """
+        url = f"{base_url}/getTask"
+        # GET requests typically don't have a JSON payload in the body
+        response = requests.get(url)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+tests\generated\test_mern-todo-app.py:50: AssertionError</failure></testcase><testcase classname="tests.generated.test_mern-todo-app" name="test_remove_task" time="0.007"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">base_url = 'http://localhost:5000/api'
+
+    def test_remove_task(base_url):
+        """
+        Test the GET /removeTask endpoint.
+        Note: Using GET for a delete operation is unconventional. DELETE is the standard method.
+        """
+        url = f"{base_url}/removeTask"
+        response = requests.get(url)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+tests\generated\test_mern-todo-app.py:60: AssertionError</failure></testcase><testcase classname="tests.generated.test_mern-todo-app" name="test_login" time="0.009"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">base_url = 'http://localhost:5000/api'
+
+    def test_login(base_url):
+        """
+        Test the POST /login endpoint.
+        """
+        url = f"{base_url}/login"
+        payload = {}
+        response = requests.post(url, json=payload)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+tests\generated\test_mern-todo-app.py:70: AssertionError</failure></testcase><testcase classname="tests.generated.test_mern-todo-app" name="test_register" time="0.007"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">base_url = 'http://localhost:5000/api'
+
+    def test_register(base_url):
+        """
+        Test the POST /register endpoint.
+        """
+        url = f"{base_url}/register"
+        payload = {}
+        response = requests.post(url, json=payload)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+tests\generated\test_mern-todo-app.py:80: AssertionError</failure></testcase><testcase classname="tests.generated.test_mern-todo-app" name="test_get_user" time="0.008"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404]&gt;.status_code">base_url = 'http://localhost:5000/api'
+
+    def test_get_user(base_url):
+        """
+        Test the GET /getuser endpoint.
+        """
+        url = f"{base_url}/getuser"
+        response = requests.get(url)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404]&gt;.status_code
+
+tests\generated\test_mern-todo-app.py:89: AssertionError</failure></testcase></testsuite></testsuites>

@@ -25,9 +25,21 @@ export const AuthProvider = ({ children }) => {
         return unsubscribe;
     }, []);
 
+    const logout = async () => {
+        try {
+            await api.logout();
+            await auth.signOut();
+            setCurrentUser(null);
+            api.setUserId(null);
+        } catch (error) {
+            console.error("Logout failed", error);
+        }
+    };
+
     const value = {
         currentUser,
-        loading
+        loading,
+        logout
     };
 
     return (

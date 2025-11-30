@@ -1,0 +1,19 @@
+{
+    "project_name": "sample.zip",
+    "upload_path": "storage\\uploads\\sample.zip",
+    "endpoints": [],
+    "test_file": "tests\\generated\\test_server.py",
+    "latest_results": {
+        "status": "success",
+        "summary": {
+            "passed": 2,
+            "failed": 0,
+            "error": 0,
+            "total": 2
+        },
+        "reward": 2.0,
+        "logs": "============================= test session starts =============================\nplatform win32 -- Python 3.10.0, pytest-9.0.1, pluggy-1.6.0 -- C:\\Users\\Satish\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\ncachedir: .pytest_cache\nrootdir: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\nplugins: anyio-4.6.2.post1, Faker-37.12.0\ncollecting ... collected 2 items\n\ntests/generated/test_server.py::test_get_status PASSED                   [ 50%]\ntests/generated/test_server.py::test_post_update_profile PASSED          [100%]\n\n=================================== PASSES ====================================\n- generated xml file: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\storage\\results\\report.xml -\n============================== 2 passed in 0.70s ==============================\n",
+        "test_file": "tests\\generated\\test_server.py",
+        "failures": []
+    }
+}

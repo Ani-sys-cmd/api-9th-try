@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useAuth } from './AuthContext';
 
 const ProjectContext = createContext(null);
 
@@ -14,6 +15,8 @@ const DEFAULT_STATE = {
 };
 
 export const ProjectProvider = ({ children }) => {
+  const { currentUser } = useAuth();
+
   const [projectState, setProjectState] = useState(() => {
     try {
       const raw = window.localStorage.getItem('projectState');
@@ -26,13 +29,23 @@ export const ProjectProvider = ({ children }) => {
     }
   });
 
+  // Reset state when user logs out
   useEffect(() => {
-    try {
-      window.localStorage.setItem('projectState', JSON.stringify(projectState));
-    } catch (e) {
-      console.warn('Failed to persist project state', e);
+    if (!currentUser) {
+      setProjectState(DEFAULT_STATE);
+      window.localStorage.removeItem('projectState');
     }
-  }, [projectState]);
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (currentUser) {
+      try {
+        window.localStorage.setItem('projectState', JSON.stringify(projectState));
+      } catch (e) {
+        console.warn('Failed to persist project state', e);
+      }
+    }
+  }, [projectState, currentUser]);
 
   return (
     <ProjectContext.Provider value={{ projectState, setProjectState }}>

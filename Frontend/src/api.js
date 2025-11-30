@@ -36,6 +36,10 @@ export const api = {
         });
     },
 
+    scanProject: async () => {
+        return axios.post(`${API_URL}/scan-project`, {});
+    },
+
     generateTests: async (config = {}) => {
         return axios.post(`${API_URL}/generate-tests`, {
             base_url: config.base_url || "http://localhost:5000"
@@ -66,5 +70,9 @@ export const api = {
 
     getHistory: async () => {
         return axios.get(`${API_URL}/history`);
+    },
+
+    logout: async () => {
+        return axios.post(`${API_URL}/logout`, {});
     }
 };
