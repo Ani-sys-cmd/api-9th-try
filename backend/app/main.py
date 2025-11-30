@@ -4,7 +4,7 @@ import json
 import glob
 from datetime import datetime
 from typing import List, Dict, Optional
-from fastapi import FastAPI, UploadFile, File, HTTPException, status
+from fastapi import FastAPI, UploadFile, File, HTTPException, status, Header, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -34,12 +34,29 @@ healer = SelfHealingAgent()
 rl_engine = RLEngine()
 github_handler = GitHubHandler()
 
-STATE_FILE = "system_state.json"
+# --- User Dependency ---
+async def get_current_user_id(x_user_id: Optional[str] = Header(None)):
+    if not x_user_id:
+        # For backward compatibility or testing without auth, we could return a default
+        # But for strict isolation, we should probably require it.
+        # Let's allow a "default" user for now if header is missing to prevent total breakage during transition
+        return "default_user"
+    return x_user_id
 
-def load_state():
-    if os.path.exists(STATE_FILE):
+# --- State Management ---
+def get_user_storage_path(user_id: str):
+    path = os.path.join("storage", "users", user_id)
+    os.makedirs(path, exist_ok=True)
+    return path
+
+def get_state_file(user_id: str):
+    return os.path.join(get_user_storage_path(user_id), "system_state.json")
+
+def load_state(user_id: str):
+    state_file = get_state_file(user_id)
+    if os.path.exists(state_file):
         try:
-            with open(STATE_FILE, "r") as f:
+            with open(state_file, "r") as f:
                 return json.load(f)
         except:
             pass
@@ -51,8 +68,9 @@ def load_state():
         "latest_results": None
     }
 
-def save_state(new_state):
-    with open(STATE_FILE, "w") as f:
+def save_state(new_state, user_id: str):
+    state_file = get_state_file(user_id)
+    with open(state_file, "w") as f:
         json.dump(new_state, f, indent=4)
 
 # --- Helper to Find Test File if State is Broken ---
@@ -94,21 +112,24 @@ def read_root():
     return {"status": "System Operational"}
 
 @app.post("/upload")
-async def upload_project(file: UploadFile = File(...)):
+async def upload_project(file: UploadFile = File(...), user_id: str = Depends(get_current_user_id)):
     try:
-        file_location = f"storage/uploads/{file.filename}"
-        os.makedirs("storage/uploads", exist_ok=True)
+        user_storage = get_user_storage_path(user_id)
+        uploads_dir = os.path.join(user_storage, "uploads")
+        os.makedirs(uploads_dir, exist_ok=True)
+        
+        file_location = os.path.join(uploads_dir, file.filename)
         
         with open(file_location, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
 
         endpoints = scanner.scan_project(file_location)
         
-        state = load_state()
+        state = load_state(user_id)
         state["project_name"] = file.filename
         state["upload_path"] = file_location
         state["endpoints"] = endpoints
-        save_state(state)
+        save_state(state, user_id)
 
         return {
             "message": "Project scanned successfully",
@@ -119,13 +140,14 @@ async def upload_project(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/generate-tests")
-def generate_tests(request: GenerateRequest):
-    state = load_state()
+def generate_tests(request: GenerateRequest, user_id: str = Depends(get_current_user_id)):
+    state = load_state(user_id)
     if not state.get("endpoints"):
         raise HTTPException(status_code=400, detail="No endpoints found. Please upload project first.")
 
     try:
         project_name = state["project_name"].replace(".zip", "")
+        # Note: Generator might need updates if it hardcodes paths, but for now we pass the endpoints
         test_file_path = generator.generate_test_suite(
             project_name, 
             state["endpoints"], 
@@ -133,7 +155,7 @@ def generate_tests(request: GenerateRequest):
         )
         
         state["test_file"] = test_file_path
-        save_state(state)
+        save_state(state, user_id)
         
         return {
             "message": "Test suite generated",
@@ -143,8 +165,8 @@ def generate_tests(request: GenerateRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/run-tests")
-def run_tests():
-    state = load_state()
+def run_tests(user_id: str = Depends(get_current_user_id)):
+    state = load_state(user_id)
     test_file = state.get("test_file")
 
     # FAIL-SAFE: If state is empty, try to find the file automatically
@@ -154,7 +176,7 @@ def run_tests():
         if found_file:
             test_file = found_file
             state["test_file"] = found_file
-            save_state(state) # Repair the state
+            save_state(state, user_id) # Repair the state
         else:
             raise HTTPException(status_code=400, detail="No test file found. Please generate tests first.")
 
@@ -162,10 +184,11 @@ def run_tests():
         results = executor.run_test_suite(test_file)
         
         state["latest_results"] = results
-        save_state(state)
+        save_state(state, user_id)
         
         # Save to run history
-        history_file = "run_history.json"
+        user_storage = get_user_storage_path(user_id)
+        history_file = os.path.join(user_storage, "run_history.json")
         history = []
         if os.path.exists(history_file):
             try:
@@ -203,7 +226,7 @@ def run_tests():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/heal-test")
-def heal_test(request: HealTestRequest):
+def heal_test(request: HealTestRequest, user_id: str = Depends(get_current_user_id)):
     try:
         result = healer.heal_test_case(request.test_file, request.failure_logs)
         return result
@@ -211,12 +234,17 @@ def heal_test(request: HealTestRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/diagnose-code")
-def diagnose_code(request: DiagnoseRequest):
+def diagnose_code(request: DiagnoseRequest, user_id: str = Depends(get_current_user_id)):
     try:
-        state = load_state()
+        state = load_state(user_id)
         project_name = state.get("project_name", "server").replace(".zip", "")
         
         # Heuristic to find the server file
+        # Check user specific extraction path if we were extracting there, but for now assuming global extraction or we need to update scanner/github handler to extract per user.
+        # For now, let's look in the global storage/extracted as that part might not be fully isolated yet without deeper changes to scanner.
+        # However, if we want full isolation, we should probably extract to user storage.
+        # Let's check if we have an upload path in state and derive from there.
+        
         estimated_path = f"storage/extracted/{project_name}/server.js"
         
         # Check if file exists, if not try to find ANY .js file
@@ -233,10 +261,12 @@ def diagnose_code(request: DiagnoseRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/process-github")
-async def process_github(request: ProcessGitHubRequest):
+async def process_github(request: ProcessGitHubRequest, user_id: str = Depends(get_current_user_id)):
     """Process a GitHub repository - clone, zip, and scan for endpoints"""
     try:
         # Clone and convert to ZIP
+        # Note: GitHubHandler might need updates to support user-specific paths
+        # For now, we'll move the result to user storage if possible, or just use the path returned.
         zip_path = github_handler.clone_and_zip(request.github_url, request.token)
         
         # Scan the project
@@ -248,11 +278,11 @@ async def process_github(request: ProcessGitHubRequest):
             repo_name = repo_name[:-4]
         
         # Save state
-        state = load_state()
+        state = load_state(user_id)
         state["project_name"] = f"{repo_name}.zip"
         state["upload_path"] = zip_path
         state["endpoints"] = endpoints
-        save_state(state)
+        save_state(state, user_id)
         
         return {
             "message": "GitHub repository processed successfully",
@@ -264,11 +294,13 @@ async def process_github(request: ProcessGitHubRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/dashboard-stats")
-async def get_dashboard_stats():
+async def get_dashboard_stats(user_id: str = Depends(get_current_user_id)):
     """Get dashboard statistics from run history"""
     try:
         # Load run history
-        history_file = "run_history.json"
+        user_storage = get_user_storage_path(user_id)
+        history_file = os.path.join(user_storage, "run_history.json")
+        
         if os.path.exists(history_file):
             with open(history_file, "r") as f:
                 history = json.load(f)
@@ -302,10 +334,12 @@ async def get_dashboard_stats():
         }
 
 @app.get("/history")
-async def get_history():
+async def get_history(user_id: str = Depends(get_current_user_id)):
     """Get test execution history"""
     try:
-        history_file = "run_history.json"
+        user_storage = get_user_storage_path(user_id)
+        history_file = os.path.join(user_storage, "run_history.json")
+        
         if os.path.exists(history_file):
             with open(history_file, "r") as f:
                 history = json.load(f)

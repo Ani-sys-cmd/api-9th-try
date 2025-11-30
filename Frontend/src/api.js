@@ -2,7 +2,23 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8000';
 
+let currentUserId = null;
+
+export const setUserId = (userId) => {
+    currentUserId = userId;
+};
+
+// Add interceptor to inject user ID
+axios.interceptors.request.use((config) => {
+    if (currentUserId) {
+        config.headers['X-User-ID'] = currentUserId;
+    }
+    return config;
+});
+
 export const api = {
+    setUserId, // Export for use in AuthContext
+
     uploadProject: async (file) => {
         const formData = new FormData();
         formData.append('file', file);
