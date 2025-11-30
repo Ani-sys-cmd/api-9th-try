@@ -1,0 +1,43 @@
+{
+    "project_name": "server.zip",
+    "upload_path": "storage/uploads/server.zip",
+    "endpoints": [
+        {
+            "path": "/api/status",
+            "method": "GET",
+            "description": "Checks the health status of the server and returns its online status and uptime.",
+            "payload_schema": {
+                "body": {},
+                "query": {}
+            },
+            "source_file": "storage/extracted\\server\\server.js"
+        },
+        {
+            "path": "/api/update-profile",
+            "method": "POST",
+            "description": "Updates a user profile. It expects a nested 'data' object containing a 'username' in the request body. The server will crash if the 'data' object is missing.",
+            "payload_schema": {
+                "body": {
+                    "data": {
+                        "username": "string"
+                    }
+                }
+            },
+            "source_file": "storage/extracted\\server\\server.js"
+        }
+    ],
+    "test_file": "C:\\Users\\isapu\\OneDrive\\Desktop\\project-root\\project-root\\backend\\app\\tests/generated\\test_server.py",
+    "latest_results": {
+        "status": "success",
+        "summary": {
+            "passed": 3,
+            "failed": 0,
+            "error": 0,
+            "total": 3
+        },
+        "reward": 3.0,
+        "logs": "============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-7.4.3, pluggy-1.6.0 -- C:\\Users\\isapu\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nrootdir: C:\\Users\\isapu\\OneDrive\\Desktop\\project-root\\project-root\\backend\\app\nplugins: anyio-3.7.1, dash-2.16.1, asyncio-0.21.1\nasyncio: mode=Mode.STRICT\ncollecting ... collected 3 items\n\ntests/generated/test_server.py::test_get_status PASSED                   [ 33%]\ntests/generated/test_server.py::test_update_profile_success PASSED       [ 66%]\ntests/generated/test_server.py::test_update_profile_invalid_payload PASSED [100%]\n\n=================================== PASSES ====================================\n_______________________________ test_get_status _______________________________\n------------------------------ Captured log call ------------------------------\nINFO     werkzeug:_internal.py:97 127.0.0.1 - - [27/Nov/2025 19:48:56] \"GET /api/status HTTP/1.1\" 200 -\n_________________________ test_update_profile_success _________________________\n------------------------------ Captured log call ------------------------------\nINFO     werkzeug:_internal.py:97 127.0.0.1 - - [27/Nov/2025 19:48:58] \"POST /api/update-profile HTTP/1.1\" 200 -\n_____________________ test_update_profile_invalid_payload _____________________\n------------------------------ Captured log call ------------------------------\nINFO     werkzeug:_internal.py:97 127.0.0.1 - - [27/Nov/2025 19:49:00] \"\u001b[31m\u001b[1mPOST /api/update-profile HTTP/1.1\u001b[0m\" 400 -\n- generated xml file: C:\\Users\\isapu\\OneDrive\\Desktop\\project-root\\project-root\\backend\\app\\storage\\results\\report.xml -\n============================== 3 passed in 7.89s ==============================\n",
+        "test_file": "C:\\Users\\isapu\\OneDrive\\Desktop\\project-root\\project-root\\backend\\app\\tests/generated\\test_server.py",
+        "failures": []
+    }
+}

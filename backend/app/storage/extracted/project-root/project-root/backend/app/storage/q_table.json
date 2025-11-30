@@ -1,0 +1,16 @@
+{
+    "/api/status": {
+        "standard": -7.2575953500539,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/api/update-profile": {
+        "standard": -7.2575953500539,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    }
+}

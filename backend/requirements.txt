@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-multipart
+google-generativeai
+pytest
+requests
+python-dotenv
+numpy
+gitpython
+validators
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart

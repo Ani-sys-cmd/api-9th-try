@@ -1,0 +1,37 @@
+{
+    "project_name": "server.zip",
+    "upload_path": "storage/uploads/server.zip",
+    "endpoints": [
+        {
+            "path": "/api/status",
+            "method": "GET",
+            "description": "A health check endpoint that returns the server's status and uptime.",
+            "payload_schema": {},
+            "source_file": "storage/extracted\\server\\server.js"
+        },
+        {
+            "path": "/api/update-profile",
+            "method": "POST",
+            "description": "Updates a user profile. Expects a nested JSON object with 'data.username'. Note: This endpoint is intentionally flawed and will crash if the 'data' object is not provided in the request body.",
+            "payload_schema": {
+                "data": {
+                    "username": "string"
+                }
+            },
+            "source_file": "storage/extracted\\server\\server.js"
+        }
+    ],
+    "test_file": "D:\\Aniket\\project-root\\backend\\app\\tests/generated\\test_server.py",
+    "latest_results": {
+        "status": "failure",
+        "summary": {
+            "passed": 0,
+            "failed": 4,
+            "error": 0,
+            "total": 4
+        },
+        "reward": -20.0,
+        "logs": "============================= test session starts =============================\nplatform win32 -- Python 3.10.0, pytest-9.0.1, pluggy-1.6.0 -- C:\\Users\\Satish\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\ncachedir: .pytest_cache\nrootdir: D:\\Aniket\\project-root\\backend\\app\nplugins: anyio-4.6.2.post1, Faker-37.12.0\ncollecting ... collected 4 items\n\ntests/generated/test_server.py::test_get_status FAILED                   [ 25%]\ntests/generated/test_server.py::test_update_profile_success FAILED       [ 50%]\ntests/generated/test_server.py::test_update_profile_invalid_payload FAILED [ 75%]\ntests/generated/test_server.py::test_update_profile_empty_username FAILED [100%]\n\n================================== FAILURES ===================================\n_______________________________ test_get_status _______________________________\n\nbase_url = 'http://localhost:5000'\n\n    def test_get_status(base_url):\n        \"\"\"\n        Tests the GET /api/status endpoint.\n        Verifies that the API returns a 200 OK status.\n        \"\"\"\n        # Construct the full URL\n        url = f\"{base_url}/api/status\"\n    \n        # Make the GET request\n        response = requests.get(url)\n    \n        # Assert that the status code is 200 (OK)\n        assert response.status_code == 200\n    \n        # Optional: Assert the response body contains expected data\n        response_json = response.json()\n        assert \"status\" in response_json\n>       assert response_json[\"status\"] == \"API is running\"\nE       AssertionError: assert 'online' == 'API is running'\nE         \nE         - API is running\nE         + online\n\ntests\\generated\\test_server.py:29: AssertionError\n_________________________ test_update_profile_success _________________________\n\nbase_url = 'http://localhost:5000'\n\n    def test_update_profile_success(base_url):\n        \"\"\"\n        Tests the POST /api/update-profile endpoint with a valid payload.\n        Verifies that the profile can be updated successfully.\n        \"\"\"\n        # Construct the full URL\n        url = f\"{base_url}/api/update-profile\"\n    \n        # Define the valid payload\n        payload = {\n            'data': {\n                'username': 'pytest_user'\n            }\n        }\n    \n        # Make the POST request with the JSON payload\n        response = requests.post(url, json=payload)\n    \n        # Assert that the status code is 200 (OK)\n        assert response.status_code == 200\n    \n        # Optional: Assert the response confirms the update\n        response_json = response.json()\n        assert \"message\" in response_json\n>       assert response_json[\"message\"] == \"Profile updated successfully for user: pytest_user\"\nE       AssertionError: assert 'Profile upda...r pytest_user' == 'Profile upda...: pytest_user'\nE         \nE         - Profile updated successfully for user: pytest_user\nE         ?                 -------------   ------\nE         + Profile updated for pytest_user\n\ntests\\generated\\test_server.py:56: AssertionError\n_____________________ test_update_profile_invalid_payload _____________________\n\nbase_url = 'http://localhost:5000'\n\n    def test_update_profile_invalid_payload(base_url):\n        \"\"\"\n        Tests the POST /api/update-profile endpoint with an invalid payload.\n        Verifies that the API handles bad requests correctly.\n        \"\"\"\n        # Construct the full URL\n        url = f\"{base_url}/api/update-profile\"\n    \n        # Define an invalid payload (missing the 'data' key)\n        invalid_payload = {\n            'username': 'invalid_user'\n        }\n    \n        # Make the POST request\n        response = requests.post(url, json=invalid_payload)\n    \n        # Assert that the status code is 400 (Bad Request)\n>       assert response.status_code == 400\nE       assert 500 == 400\nE        +  where 500 = <Response [500]>.status_code\n\ntests\\generated\\test_server.py:78: AssertionError\n_____________________ test_update_profile_empty_username ______________________\n\nbase_url = 'http://localhost:5000'\n\n    def test_update_profile_empty_username(base_url):\n        \"\"\"\n        Tests the POST /api/update-profile endpoint with an empty username.\n        Verifies that the API handles invalid data correctly.\n        \"\"\"\n        # Construct the full URL\n        url = f\"{base_url}/api/update-profile\"\n    \n        # Define a payload with an empty username string\n        payload = {\n            'data': {\n                'username': ''\n            }\n        }\n    \n        # Make the POST request\n        response = requests.post(url, json=payload)\n    \n        # Assert that the status code is 400 (Bad Request)\n>       assert response.status_code == 400\nE       assert 200 == 400\nE        +  where 200 = <Response [200]>.status_code\n\ntests\\generated\\test_server.py:105: AssertionError\n============================== 4 failed in 1.16s ==============================\n",
+        "test_file": "D:\\Aniket\\project-root\\backend\\app\\tests/generated\\test_server.py"
+    }
+}

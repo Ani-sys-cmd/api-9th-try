@@ -1,0 +1,58 @@
+{
+    "/api/status": {
+        "standard": -20.58169491496877,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/api/update-profile": {
+        "standard": -20.58169491496877,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/getUsers": {
+        "standard": -17.4342085948433,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/addUser": {
+        "standard": -17.4342085948433,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/employees/": {
+        "standard": -11.390655800000001,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/employees/:id": {
+        "standard": -14.35140927038,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/todos": {
+        "standard": 0.0,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    },
+    "/todos/:id": {
+        "standard": 0.0,
+        "null_injection": 0.0,
+        "sql_injection": 0.0,
+        "overflow": 0.0,
+        "type_mismatch": 0.0
+    }
+}
