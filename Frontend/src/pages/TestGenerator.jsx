@@ -25,10 +25,18 @@ const TestGenerator = () => {
                 generatorStatus: 'success'
             }));
         } catch (err) {
+            const statusCode = err.response?.status;
+            const detail = err.response?.data?.detail || err.message || "Unknown error generating tests.";
+            
+            let newStatus = 'error';
+            if (statusCode === 429) {
+                newStatus = 'quota';
+            }
+
             setProjectState(prev => ({
                 ...prev,
-                generatorLogs: [...prev.generatorLogs, `Error: ${err.message}`],
-                generatorStatus: 'error'
+                generatorLogs: [...prev.generatorLogs, `Error: ${detail}`],
+                generatorStatus: newStatus
             }));
         }
     };
@@ -83,8 +91,8 @@ const TestGenerator = () => {
 
                     <button
                         onClick={handleGenerate}
-                        disabled={status === 'generating'}
-                        className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all ${status === 'generating'
+                        disabled={status === 'generating' || status === 'quota'}
+                        className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all ${status === 'generating' || status === 'quota'
                             ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
                             : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-lg hover:shadow-purple-500/25 hover:-translate-y-0.5 text-white'
                             }`}
@@ -92,6 +100,12 @@ const TestGenerator = () => {
                         <Zap className={`w-5 h-5 ${status === 'generating' ? 'animate-pulse' : ''}`} />
                         {status === 'generating' ? 'Generating...' : 'Start Generation'}
                     </button>
+                    
+                    {status === 'quota' && (
+                        <div className="mt-3 text-sm text-red-500 bg-red-500/10 p-3 rounded-lg border border-red-500/20">
+                            LLM daily quota exceeded. Use a different API key, switch model, or try again tomorrow.
+                        </div>
+                    )}
                 </div>
 
                 <div className="lg:col-span-2">
@@ -115,6 +129,12 @@ const TestGenerator = () => {
                                 <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-3 text-red-400">
                                     <AlertTriangle className="w-5 h-5" />
                                     Generation Failed
+                                </div>
+                            )}
+                            {status === 'quota' && (
+                                <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-3 text-red-400">
+                                    <AlertTriangle className="w-5 h-5" />
+                                    Quota Exceeded
                                 </div>
                             )}
                         </div>

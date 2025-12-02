@@ -15,6 +15,7 @@ from app.agents.executor import TestExecutor
 from app.agents.healer import SelfHealingAgent
 from app.agents.rl_engine import RLEngine
 from app.agents.github_handler import GitHubHandler
+from app.agents.llm_client import GeminiQuotaError, GeminiRateLimitError
 
 app = FastAPI(title="Agentic AI Tester", version="1.1.0")
 
@@ -214,6 +215,10 @@ def generate_tests(request: GenerateRequest, user_id: str = Depends(get_current_
             "message": "Test suite generated",
             "test_file_path": test_file_path
         }
+    except GeminiQuotaError as e:
+        raise HTTPException(status_code=429, detail=str(e))
+    except GeminiRateLimitError as e:
+        raise HTTPException(status_code=429, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

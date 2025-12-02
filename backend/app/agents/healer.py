@@ -1,41 +1,15 @@
 import os
-import time
-import random
-import google.generativeai as genai
+import json
 from typing import Dict, Any
 from dotenv import load_dotenv
-import json
+from .llm_client import GeminiClient
 
 # Load environment variables
 load_dotenv()
 
-# Configure Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
 class SelfHealingAgent:
     def __init__(self):
-        self.model = genai.GenerativeModel('gemini-2.5-pro')
-
-    def _generate_with_retry(self, prompt: str, max_retries: int = 3) -> str:
-        """
-        Helper to generate content with exponential backoff for rate limits (429).
-        """
-        for attempt in range(max_retries):
-            try:
-                response = self.model.generate_content(prompt)
-                return response.text
-            except Exception as e:
-                error_str = str(e)
-                if "429" in error_str or "Quota exceeded" in error_str:
-                    if attempt < max_retries - 1:
-                        # Exponential backoff: 2s, 4s, 8s... + jitter
-                        wait_time = (2 ** attempt) * 2 + random.uniform(0, 1)
-                        print(f"Rate limit hit. Retrying in {wait_time:.2f}s...")
-                        time.sleep(wait_time)
-                        continue
-                # If it's not a rate limit or we ran out of retries, raise it
-                raise e
-        raise Exception("Max retries exceeded for Gemini API")
+        self.client = GeminiClient()
 
     def heal_test_case(self, test_file_path: str, failure_logs: str) -> Dict[str, Any]:
         """
@@ -83,8 +57,8 @@ class SelfHealingAgent:
             - Generate the final code.
             """
 
-            # Use retry mechanism
-            fixed_code = self._generate_with_retry(prompt).strip()
+            # Use centralized client
+            fixed_code = self.client.generate_content(prompt).strip()
 
             # Clean formatting if Gemini adds markdown
             if fixed_code.startswith("```python"):
@@ -154,8 +128,8 @@ class SelfHealingAgent:
             }}
             """
 
-            # Use retry mechanism
-            cleaned_response = self._generate_with_retry(prompt).strip()
+            # Use centralized client
+            cleaned_response = self.client.generate_content(prompt).strip()
             
             # Remove markdown formatting if present
             if cleaned_response.startswith("```json"):

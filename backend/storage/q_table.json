@@ -14,56 +14,56 @@
         "type_mismatch": 0.0
     },
     "/forgotPassword": {
-        "standard": -20.203384833655598,
+        "standard": -27.530385671710036,
         "null_injection": 0.0,
         "sql_injection": 0.0,
         "overflow": 0.0,
         "type_mismatch": 0.0
     },
     "/resetPassword": {
-        "standard": -20.203384833655598,
+        "standard": -27.530385671710036,
         "null_injection": 0.0,
         "sql_injection": 0.0,
         "overflow": 0.0,
         "type_mismatch": 0.0
     },
     "/addTask": {
-        "standard": -20.203384833655598,
+        "standard": -27.530385671710036,
         "null_injection": 0.0,
         "sql_injection": 0.0,
         "overflow": 0.0,
         "type_mismatch": 0.0
     },
     "/getTask": {
-        "standard": -20.203384833655598,
+        "standard": -27.530385671710036,
         "null_injection": 0.0,
         "sql_injection": 0.0,
         "overflow": 0.0,
         "type_mismatch": 0.0
     },
     "/removeTask": {
-        "standard": -20.203384833655598,
+        "standard": -27.530385671710036,
         "null_injection": 0.0,
         "sql_injection": 0.0,
         "overflow": 0.0,
         "type_mismatch": 0.0
     },
     "/login": {
-        "standard": -38.02780610853903,
+        "standard": -34.43593167816738,
         "null_injection": 0.0,
         "sql_injection": 0.0,
         "overflow": 0.0,
         "type_mismatch": 0.0
     },
     "/register": {
-        "standard": -38.02780610853903,
+        "standard": -34.43593167816738,
         "null_injection": 0.0,
         "sql_injection": 0.0,
         "overflow": 0.0,
         "type_mismatch": 0.0
     },
     "/getuser": {
-        "standard": -20.203384833655598,
+        "standard": -27.530385671710036,
         "null_injection": 0.0,
         "sql_injection": 0.0,
         "overflow": 0.0,

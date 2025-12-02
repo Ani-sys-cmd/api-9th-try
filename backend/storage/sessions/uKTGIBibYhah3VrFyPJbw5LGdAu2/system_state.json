@@ -1,0 +1,76 @@
+{
+    "project_name": "mern-todo-app.zip",
+    "upload_path": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\uploads\\mern-todo-app.zip",
+    "endpoints": [
+        {
+            "path": "/forgotPassword",
+            "method": "POST",
+            "description": "Detected POST endpoint at /forgotPassword",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\forgotPassword.js"
+        },
+        {
+            "path": "/resetPassword",
+            "method": "POST",
+            "description": "Detected POST endpoint at /resetPassword",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\forgotPassword.js"
+        },
+        {
+            "path": "/addTask",
+            "method": "POST",
+            "description": "Detected POST endpoint at /addTask",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\taskRoute.js"
+        },
+        {
+            "path": "/getTask",
+            "method": "GET",
+            "description": "Detected GET endpoint at /getTask",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\taskRoute.js"
+        },
+        {
+            "path": "/removeTask",
+            "method": "GET",
+            "description": "Detected GET endpoint at /removeTask",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\taskRoute.js"
+        },
+        {
+            "path": "/login",
+            "method": "POST",
+            "description": "Detected POST endpoint at /login",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\userRoute.js"
+        },
+        {
+            "path": "/register",
+            "method": "POST",
+            "description": "Detected POST endpoint at /register",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\userRoute.js"
+        },
+        {
+            "path": "/getuser",
+            "method": "GET",
+            "description": "Detected GET endpoint at /getuser",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\userRoute.js"
+        }
+    ],
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py",
+    "latest_results": {
+        "status": "success",
+        "summary": {
+            "passed": 8,
+            "failed": 0,
+            "error": 0,
+            "total": 8
+        },
+        "reward": 8.0,
+        "logs": "============================= test session starts =============================\nplatform win32 -- Python 3.10.0, pytest-9.0.1, pluggy-1.6.0 -- C:\\Users\\Satish\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\ncachedir: .pytest_cache\nrootdir: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\nplugins: anyio-4.6.2.post1, Faker-37.12.0\ncollecting ... collected 8 items\n\ntests/generated/test_mern-todo-app.py::test_forgot_password_bad_request PASSED [ 12%]\ntests/generated/test_mern-todo-app.py::test_reset_password_bad_request PASSED [ 25%]\ntests/generated/test_mern-todo-app.py::test_add_task_unauthorized PASSED [ 37%]\ntests/generated/test_mern-todo-app.py::test_get_task_unauthorized PASSED [ 50%]\ntests/generated/test_mern-todo-app.py::test_remove_task_unauthorized PASSED [ 62%]\ntests/generated/test_mern-todo-app.py::test_login_bad_request PASSED     [ 75%]\ntests/generated/test_mern-todo-app.py::test_register_bad_request PASSED  [ 87%]\ntests/generated/test_mern-todo-app.py::test_get_user_unauthorized PASSED [100%]\n\n=================================== PASSES ====================================\n- generated xml file: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\storage\\results\\report.xml -\n============================= 8 passed in 33.16s ==============================\n",
+        "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py",
+        "failures": []
+    }
+}

@@ -93,6 +93,7 @@ class TestExecutor:
             # Define XML report path
             report_path = os.path.join(self.results_dir, "report.xml")
             
+            print(f"Running pytest command on {test_file_path}...")
             # Run pytest with XML reporting
             result = subprocess.run(
                 ["pytest", test_file_path, "-v", "-rP", f"--junitxml={report_path}"],
@@ -100,9 +101,14 @@ class TestExecutor:
                 text=True,
                 timeout=60
             )
+            print(f"Pytest finished with return code: {result.returncode}")
             
             logs = result.stdout + result.stderr
+            print(f"Parsing pytest output (len={len(logs)} chars)...")
+            
             summary = self._parse_pytest_output(logs)
+            print(f"Test Summary: {summary}")
+            
             reward = self._calculate_reward(summary, logs)
             failures = self._parse_xml_report(report_path)
             
