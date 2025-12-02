@@ -6,6 +6,7 @@ import UploadProject from './pages/UploadProject';
 import TestGenerator from './pages/TestGenerator';
 import TestRunner from './pages/TestRunner';
 import ResultsHistory from './pages/ResultsHistory';
+import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import Login from './pages/Auth/Login';
 import SignUp from './pages/Auth/SignUp';
@@ -32,6 +33,7 @@ function App() {
               <Route path="generate" element={<TestGenerator />} />
               <Route path="run" element={<TestRunner />} />
               <Route path="results" element={<ResultsHistory />} />
+              <Route path="analytics" element={<Analytics />} />
               <Route path="settings" element={<Settings />} />
             </Route>
 

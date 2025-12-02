@@ -29,7 +29,7 @@ export const api = {
         });
     },
 
-    processGitHub: async (githubUrl, token = null) => {
+    uploadGithubRepo: async (githubUrl, token = null) => {
         return axios.post(`${API_URL}/process-github`, {
             github_url: githubUrl,
             token: token

@@ -115,5 +115,117 @@
       "total": 8
     },
     "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-02T16:11:19.974261",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -40.0,
+    "summary": {
+      "passed": 0,
+      "failed": 8,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-02T16:14:05.294001",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -40.0,
+    "summary": {
+      "passed": 0,
+      "failed": 8,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-02T17:35:51.439956",
+    "project_name": "ecommerce_api.zip",
+    "status": "failed",
+    "reward": -55.0,
+    "summary": {
+      "passed": 0,
+      "failed": 11,
+      "error": 0,
+      "total": 11
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py"
+  },
+  {
+    "timestamp": "2025-12-02T17:38:14.121912",
+    "project_name": "ecommerce_api.zip",
+    "status": "failed",
+    "reward": 0.0,
+    "summary": {},
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py"
+  },
+  {
+    "timestamp": "2025-12-02T17:38:52.931169",
+    "project_name": "ecommerce_api.zip",
+    "status": "failed",
+    "reward": -55.0,
+    "summary": {
+      "passed": 0,
+      "failed": 11,
+      "error": 0,
+      "total": 11
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py"
+  },
+  {
+    "timestamp": "2025-12-02T17:50:39.618059",
+    "project_name": "ecommerce_api.zip",
+    "status": "failed",
+    "reward": -55.0,
+    "summary": {
+      "passed": 0,
+      "failed": 11,
+      "error": 0,
+      "total": 11
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py"
+  },
+  {
+    "timestamp": "2025-12-02T18:05:31.251528",
+    "project_name": "ecommerce_api.zip",
+    "status": "failed",
+    "reward": -42.0,
+    "summary": {
+      "passed": 3,
+      "failed": 9,
+      "error": 0,
+      "total": 12
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py"
+  },
+  {
+    "timestamp": "2025-12-02T18:06:57.377137",
+    "project_name": "ecommerce_api.zip",
+    "status": "failed",
+    "reward": 0.0,
+    "summary": {
+      "passed": 10,
+      "failed": 2,
+      "error": 0,
+      "total": 12
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py"
+  },
+  {
+    "timestamp": "2025-12-02T18:08:33.216717",
+    "project_name": "ecommerce_api.zip",
+    "status": "failed",
+    "reward": -12.0,
+    "summary": {
+      "passed": 8,
+      "failed": 4,
+      "error": 0,
+      "total": 12
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py"
   }
 ]

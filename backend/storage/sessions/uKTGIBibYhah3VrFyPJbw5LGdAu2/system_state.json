@@ -1,76 +1,147 @@
 {
-    "project_name": "mern-todo-app.zip",
-    "upload_path": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\uploads\\mern-todo-app.zip",
+    "project_name": "ecommerce_api.zip",
+    "upload_path": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\uploads\\ecommerce_api.zip",
     "endpoints": [
         {
-            "path": "/forgotPassword",
-            "method": "POST",
-            "description": "Detected POST endpoint at /forgotPassword",
-            "payload_schema": {},
-            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\forgotPassword.js"
-        },
-        {
-            "path": "/resetPassword",
-            "method": "POST",
-            "description": "Detected POST endpoint at /resetPassword",
-            "payload_schema": {},
-            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\forgotPassword.js"
-        },
-        {
-            "path": "/addTask",
-            "method": "POST",
-            "description": "Detected POST endpoint at /addTask",
-            "payload_schema": {},
-            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\taskRoute.js"
-        },
-        {
-            "path": "/getTask",
+            "path": "/cart",
             "method": "GET",
-            "description": "Detected GET endpoint at /getTask",
+            "description": "Detected GET endpoint at /cart",
             "payload_schema": {},
-            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\taskRoute.js"
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\server.js"
         },
         {
-            "path": "/removeTask",
-            "method": "GET",
-            "description": "Detected GET endpoint at /removeTask",
-            "payload_schema": {},
-            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\taskRoute.js"
-        },
-        {
-            "path": "/login",
+            "path": "/cart",
             "method": "POST",
-            "description": "Detected POST endpoint at /login",
+            "description": "Detected POST endpoint at /cart",
             "payload_schema": {},
-            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\userRoute.js"
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\server.js"
+        },
+        {
+            "path": "/cart/:productId",
+            "method": "DELETE",
+            "description": "Detected DELETE endpoint at /cart/:productId",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\server.js"
+        },
+        {
+            "path": "/checkout",
+            "method": "POST",
+            "description": "Detected POST endpoint at /checkout",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\server.js"
+        },
+        {
+            "path": "/",
+            "method": "POST",
+            "description": "Detected POST endpoint at /",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\orders.js"
+        },
+        {
+            "path": "/:id",
+            "method": "GET",
+            "description": "Detected GET endpoint at /:id",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\orders.js"
+        },
+        {
+            "path": "/",
+            "method": "GET",
+            "description": "Detected GET endpoint at /",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\products.js"
+        },
+        {
+            "path": "/:id",
+            "method": "GET",
+            "description": "Detected GET endpoint at /:id",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\products.js"
+        },
+        {
+            "path": "/",
+            "method": "POST",
+            "description": "Detected POST endpoint at /",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\products.js"
+        },
+        {
+            "path": "/:id",
+            "method": "DELETE",
+            "description": "Detected DELETE endpoint at /:id",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\products.js"
+        },
+        {
+            "path": "/:productId",
+            "method": "GET",
+            "description": "Detected GET endpoint at /:productId",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\reviews.js"
+        },
+        {
+            "path": "/:productId",
+            "method": "POST",
+            "description": "Detected POST endpoint at /:productId",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\reviews.js"
         },
         {
             "path": "/register",
             "method": "POST",
             "description": "Detected POST endpoint at /register",
             "payload_schema": {},
-            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\userRoute.js"
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\users.js"
         },
         {
-            "path": "/getuser",
-            "method": "GET",
-            "description": "Detected GET endpoint at /getuser",
+            "path": "/login",
+            "method": "POST",
+            "description": "Detected POST endpoint at /login",
             "payload_schema": {},
-            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\mern-todo-app\\backend\\routes\\userRoute.js"
+            "source_file": "storage\\sessions\\uKTGIBibYhah3VrFyPJbw5LGdAu2\\extracted\\ecommerce_api\\ecommerce_api\\routes\\users.js"
         }
     ],
-    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py",
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py",
     "latest_results": {
-        "status": "success",
+        "status": "failure",
         "summary": {
             "passed": 8,
-            "failed": 0,
+            "failed": 4,
             "error": 0,
-            "total": 8
+            "total": 12
         },
-        "reward": 8.0,
-        "logs": "============================= test session starts =============================\nplatform win32 -- Python 3.10.0, pytest-9.0.1, pluggy-1.6.0 -- C:\\Users\\Satish\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\ncachedir: .pytest_cache\nrootdir: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\nplugins: anyio-4.6.2.post1, Faker-37.12.0\ncollecting ... collected 8 items\n\ntests/generated/test_mern-todo-app.py::test_forgot_password_bad_request PASSED [ 12%]\ntests/generated/test_mern-todo-app.py::test_reset_password_bad_request PASSED [ 25%]\ntests/generated/test_mern-todo-app.py::test_add_task_unauthorized PASSED [ 37%]\ntests/generated/test_mern-todo-app.py::test_get_task_unauthorized PASSED [ 50%]\ntests/generated/test_mern-todo-app.py::test_remove_task_unauthorized PASSED [ 62%]\ntests/generated/test_mern-todo-app.py::test_login_bad_request PASSED     [ 75%]\ntests/generated/test_mern-todo-app.py::test_register_bad_request PASSED  [ 87%]\ntests/generated/test_mern-todo-app.py::test_get_user_unauthorized PASSED [100%]\n\n=================================== PASSES ====================================\n- generated xml file: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\storage\\results\\report.xml -\n============================= 8 passed in 33.16s ==============================\n",
-        "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py",
-        "failures": []
+        "reward": -12.0,
+        "logs": "============================= test session starts =============================\nplatform win32 -- Python 3.10.0, pytest-9.0.1, pluggy-1.6.0 -- C:\\Users\\Satish\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\ncachedir: .pytest_cache\nrootdir: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\nplugins: anyio-4.6.2.post1, Faker-37.12.0\ncollecting ... collected 12 items\n\ntests/generated/test_ecommerce_api.py::test_get_cart PASSED              [  8%]\ntests/generated/test_ecommerce_api.py::test_add_to_cart PASSED           [ 16%]\ntests/generated/test_ecommerce_api.py::test_delete_from_cart PASSED      [ 25%]\ntests/generated/test_ecommerce_api.py::test_checkout FAILED              [ 33%]\ntests/generated/test_ecommerce_api.py::test_create_resource PASSED       [ 41%]\ntests/generated/test_ecommerce_api.py::test_get_all_resources PASSED     [ 50%]\ntests/generated/test_ecommerce_api.py::test_get_resource_by_id PASSED    [ 58%]\ntests/generated/test_ecommerce_api.py::test_delete_resource_by_id PASSED [ 66%]\ntests/generated/test_ecommerce_api.py::test_get_by_product_id PASSED     [ 75%]\ntests/generated/test_ecommerce_api.py::test_post_by_product_id FAILED    [ 83%]\ntests/generated/test_ecommerce_api.py::test_register_user FAILED         [ 91%]\ntests/generated/test_ecommerce_api.py::test_login_user FAILED            [100%]\n\n================================== FAILURES ===================================\n________________________________ test_checkout ________________________________\n\nbase_url = 'http://localhost:5000'\n\n    def test_checkout(base_url):\n        \"\"\"\n        Tests POST /checkout endpoint.\n        Assumes the cart is not empty and the user is ready to check out.\n        \"\"\"\n        # The prompt specified an empty payload.\n        payload = {}\n        response = requests.post(f\"{base_url}/checkout\", json=payload)\n        # FIX: The API returns 500 with a specific error message. The test is updated to match the API's actual response.\n>       assert response.status_code == 500, f\"Expected 500 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 500 but got 200. Response: {\"message\":\"Checkout successful\"}\nE       assert 200 == 500\nE        +  where 200 = <Response [200]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:67: AssertionError\n___________________________ test_post_by_product_id ___________________________\n\nbase_url = 'http://localhost:5000'\n\n    def test_post_by_product_id(base_url):\n        \"\"\"\n        Tests POST /products/:productId endpoint.\n        This is an unusual endpoint; it could be for actions like 'add review'.\n        Sending an empty payload as specified.\n        \"\"\"\n        product_id = 1\n        payload = {} # As specified in the prompt\n        # FIX: The API endpoint for a single product is /products/:id.\n        response = requests.post(f\"{base_url}/products/{product_id}\", json=payload)\n        # The expected status code is a guess; 200 or 400 (if payload is insufficient) are likely.\n        # The original failure was a 404 due to the incorrect path. We correct the path.\n        # We keep the original assertion of 200 as the intended behavior for this hypothetical endpoint.\n>       assert response.status_code == 200, f\"Expected 200 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 200 but got 404. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /products/1</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:154: AssertionError\n_____________________________ test_register_user ______________________________\n\nbase_url = 'http://localhost:5000'\n\n    def test_register_user(base_url):\n        \"\"\"\n        Tests POST /users endpoint with a unique username.\n        \"\"\"\n        unique_username = f\"testuser_{random_string()}\"\n        payload = {\n            \"username\": unique_username,\n            \"password\": \"a_strong_password_123\"\n        }\n        # FIX: The API endpoint for user registration is /users, not /register.\n        response = requests.post(f\"{base_url}/users\", json=payload)\n>       assert response.status_code == 201, f\"Expected 201 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 201 but got 404. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /users</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 201\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:168: AssertionError\n_______________________________ test_login_user _______________________________\n\nbase_url = 'http://localhost:5000'\n\n    def test_login_user(base_url):\n        \"\"\"\n        Tests POST /login endpoint.\n        First, it registers a new user, then tries to log in with those credentials.\n        \"\"\"\n        # Step 1: Register a new user to ensure the user exists\n        unique_username = f\"testuser_{random_string()}\"\n        password = \"a_strong_password_123\"\n        register_payload = {\n            \"username\": unique_username,\n            \"password\": password\n        }\n        # FIX: The API endpoint for user registration is /users, not /register.\n        reg_response = requests.post(f\"{base_url}/users\", json=register_payload)\n>       assert reg_response.status_code == 201, f\"Registration failed, cannot proceed with login test. Response: {reg_response.text}\"\nE       AssertionError: Registration failed, cannot proceed with login test. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /users</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 201\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:186: AssertionError\n=================================== PASSES ====================================\n- generated xml file: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\storage\\results\\report.xml -\n========================= 4 failed, 8 passed in 1.59s =========================\n",
+        "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_ecommerce_api.py",
+        "failures": [
+            {
+                "nodeid": "test_checkout",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Expected 500 but got 200. Response: {\"message\":\"Checkout successful\"}\nassert 200 == 500\n +  where 200 = <Response [200]>.status_code",
+                "longrepr": "base_url = 'http://localhost:5000'\n\n    def test_checkout(base_url):\n        \"\"\"\n        Tests POST /checkout endpoint.\n        Assumes the cart is not empty and the user is ready to check out.\n        \"\"\"\n        # The prompt specified an empty payload.\n        payload = {}\n        response = requests.post(f\"{base_url}/checkout\", json=payload)\n        # FIX: The API returns 500 with a specific error message. The test is updated to match the API's actual response.\n>       assert response.status_code == 500, f\"Expected 500 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 500 but got 200. Response: {\"message\":\"Checkout successful\"}\nE       assert 200 == 500\nE        +  where 200 = <Response [200]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:67: AssertionError"
+            },
+            {
+                "nodeid": "test_post_by_product_id",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Expected 200 but got 404. Response: <!DOCTYPE html>\n  <html lang=\"en\">\n  <head>\n  <meta charset=\"utf-8\">\n  <title>Error</title>\n  </head>\n  <body>\n  <pre>Cannot POST /products/1</pre>\n  </body>\n  </html>\n  \nassert 404 == 200\n +  where 404 = <Response [404]>.status_code",
+                "longrepr": "base_url = 'http://localhost:5000'\n\n    def test_post_by_product_id(base_url):\n        \"\"\"\n        Tests POST /products/:productId endpoint.\n        This is an unusual endpoint; it could be for actions like 'add review'.\n        Sending an empty payload as specified.\n        \"\"\"\n        product_id = 1\n        payload = {} # As specified in the prompt\n        # FIX: The API endpoint for a single product is /products/:id.\n        response = requests.post(f\"{base_url}/products/{product_id}\", json=payload)\n        # The expected status code is a guess; 200 or 400 (if payload is insufficient) are likely.\n        # The original failure was a 404 due to the incorrect path. We correct the path.\n        # We keep the original assertion of 200 as the intended behavior for this hypothetical endpoint.\n>       assert response.status_code == 200, f\"Expected 200 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 200 but got 404. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /products/1</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:154: AssertionError"
+            },
+            {
+                "nodeid": "test_register_user",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Expected 201 but got 404. Response: <!DOCTYPE html>\n  <html lang=\"en\">\n  <head>\n  <meta charset=\"utf-8\">\n  <title>Error</title>\n  </head>\n  <body>\n  <pre>Cannot POST /users</pre>\n  </body>\n  </html>\n  \nassert 404 == 201\n +  where 404 = <Response [404]>.status_code",
+                "longrepr": "base_url = 'http://localhost:5000'\n\n    def test_register_user(base_url):\n        \"\"\"\n        Tests POST /users endpoint with a unique username.\n        \"\"\"\n        unique_username = f\"testuser_{random_string()}\"\n        payload = {\n            \"username\": unique_username,\n            \"password\": \"a_strong_password_123\"\n        }\n        # FIX: The API endpoint for user registration is /users, not /register.\n        response = requests.post(f\"{base_url}/users\", json=payload)\n>       assert response.status_code == 201, f\"Expected 201 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 201 but got 404. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /users</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 201\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:168: AssertionError"
+            },
+            {
+                "nodeid": "test_login_user",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Registration failed, cannot proceed with login test. Response: <!DOCTYPE html>\n  <html lang=\"en\">\n  <head>\n  <meta charset=\"utf-8\">\n  <title>Error</title>\n  </head>\n  <body>\n  <pre>Cannot POST /users</pre>\n  </body>\n  </html>\n  \nassert 404 == 201\n +  where 404 = <Response [404]>.status_code",
+                "longrepr": "base_url = 'http://localhost:5000'\n\n    def test_login_user(base_url):\n        \"\"\"\n        Tests POST /login endpoint.\n        First, it registers a new user, then tries to log in with those credentials.\n        \"\"\"\n        # Step 1: Register a new user to ensure the user exists\n        unique_username = f\"testuser_{random_string()}\"\n        password = \"a_strong_password_123\"\n        register_payload = {\n            \"username\": unique_username,\n            \"password\": password\n        }\n        # FIX: The API endpoint for user registration is /users, not /register.\n        reg_response = requests.post(f\"{base_url}/users\", json=register_payload)\n>       assert reg_response.status_code == 201, f\"Registration failed, cannot proceed with login test. Response: {reg_response.text}\"\nE       AssertionError: Registration failed, cannot proceed with login test. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /users</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 201\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:186: AssertionError"
+            }
+        ]
     }
 }

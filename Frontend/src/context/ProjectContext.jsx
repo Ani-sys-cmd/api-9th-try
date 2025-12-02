@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
+import { api } from '../api';
 
 const ProjectContext = createContext(null);
 
@@ -47,8 +48,47 @@ export const ProjectProvider = ({ children }) => {
     }
   }, [projectState, currentUser]);
 
+  const uploadProject = async (file) => {
+    setProjectState(prev => ({ ...prev, uploadStatus: 'uploading' }));
+    try {
+      const response = await api.uploadProject(file);
+      setProjectState(prev => ({
+        ...prev,
+        uploadStatus: 'success',
+        projectName: response.data.project_name,
+        endpoints: response.data.endpoints_data,
+        uploadPath: response.data.upload_path,
+        autoGenerateTests: true // Flag to trigger generation on next page
+      }));
+      return response.data;
+    } catch (error) {
+      setProjectState(prev => ({ ...prev, uploadStatus: 'error' }));
+      throw error;
+    }
+  };
+
+  const uploadGithubRepo = async (url, token) => {
+    setProjectState(prev => ({ ...prev, uploadStatus: 'uploading' }));
+    try {
+      const response = await api.uploadGithubRepo(url, token);
+      setProjectState(prev => ({
+        ...prev,
+        uploadStatus: 'success',
+        projectName: response.data.project_name,
+        endpoints: response.data.endpoints_data,
+        uploadPath: response.data.upload_path,
+        githubUrl: url,
+        autoGenerateTests: true
+      }));
+      return response.data;
+    } catch (error) {
+      setProjectState(prev => ({ ...prev, uploadStatus: 'error' }));
+      throw error;
+    }
+  };
+
   return (
-    <ProjectContext.Provider value={{ projectState, setProjectState }}>
+    <ProjectContext.Provider value={{ projectState, setProjectState, uploadProject, uploadGithubRepo }}>
       {children}
     </ProjectContext.Provider>
   );

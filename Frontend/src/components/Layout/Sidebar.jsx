@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Upload, Zap, Play, History, Settings, Terminal, LogOut } from 'lucide-react';
+import { LayoutDashboard, Upload, Zap, Play, History, Settings, Terminal, LogOut, BarChart2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { auth } from '../../config/firebase';
 
@@ -11,6 +11,7 @@ const Sidebar = () => {
         { path: '/generate', label: 'Test Generator', icon: Zap },
         { path: '/run', label: 'Test Runner', icon: Play },
         { path: '/results', label: 'Results History', icon: History },
+        { path: '/analytics', label: 'Analytics', icon: BarChart2 },
         { path: '/settings', label: 'Settings', icon: Settings },
     ];
 

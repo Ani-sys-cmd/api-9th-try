@@ -1,303 +1,196 @@
-import React, { useState, useEffect } from 'react';
-import { Upload, FileArchive, CheckCircle, AlertCircle, Zap, RefreshCw } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { api } from '../api';
+import React, { useState, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { Upload, Github, FileCode, X, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Card from '../components/common/Card';
+import Button from '../components/common/Button';
 import { useProject } from '../context/ProjectContext';
+import { useNavigate } from 'react-router-dom';
 
 const UploadProject = () => {
-    const { projectState, setProjectState } = useProject();
+    const [githubUrl, setGithubUrl] = useState('');
+    const [githubToken, setGithubToken] = useState('');
+    const [isUploading, setIsUploading] = useState(false);
+    const [uploadError, setUploadError] = useState(null);
+    const { projectState, uploadProject, uploadGithubRepo } = useProject();
     const navigate = useNavigate();
 
-    const [dragActive, setDragActive] = useState(false);
-    const [file, setFile] = useState(null);
-    const [status, setStatus] = useState(projectState.uploadStatus || 'idle'); // idle, uploading, success, error
-    const [endpoints, setEndpoints] = useState(projectState.endpoints || []);
-    const [githubUrl, setGithubUrl] = useState(projectState.githubUrl || '');
-    const [error, setError] = useState(null);
+    const onDrop = useCallback(async (acceptedFiles) => {
+        if (acceptedFiles.length === 0) return;
 
-    // When user navigates away and comes back, hydrate from global state
-    useEffect(() => {
-        setStatus(projectState.uploadStatus || 'idle');
-        setEndpoints(projectState.endpoints || []);
-        setGithubUrl(projectState.githubUrl || '');
-    }, [projectState.uploadStatus, projectState.endpoints, projectState.githubUrl]);
-
-    const handleDrag = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (e.type === 'dragenter' || e.type === 'dragover') {
-            setDragActive(true);
-        } else if (e.type === 'dragleave') {
-            setDragActive(false);
-        }
-    };
-
-    const handleDrop = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setDragActive(false);
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            handleFile(e.dataTransfer.files[0]);
-        }
-    };
-
-    const handleChange = (e) => {
-        e.preventDefault();
-        if (e.target.files && e.target.files[0]) {
-            handleFile(e.target.files[0]);
-        }
-    };
-
-    const handleFile = async (selectedFile) => {
-        setFile(selectedFile);
-        setStatus('uploading');
-        setError(null);
+        const file = acceptedFiles[0];
+        setIsUploading(true);
+        setUploadError(null);
 
         try {
-            const res = await api.uploadProject(selectedFile);
-            const discoveredEndpoints = res.data.endpoints_data || [];
-
-            setEndpoints(discoveredEndpoints);
-            setStatus('success');
-
-            // Persist across the whole app (and refreshes)
-            setProjectState((prev) => ({
-                ...prev,
-                projectName: selectedFile.name,
-                uploadStatus: 'success',
-                endpoints: discoveredEndpoints,
-                githubUrl: githubUrl
-            }));
-        } catch (err) {
-            console.error(err);
-            const message = err?.response?.data?.detail || err.message || 'Upload failed';
-            setError(message);
-            setStatus('error');
+            await uploadProject(file);
+            // navigate('/generate'); // Removed auto-navigation
+        } catch (error) {
+            setUploadError(error.message || 'Failed to upload project');
+        } finally {
+            setIsUploading(false);
         }
-    };
+    }, [uploadProject]);
 
-    const handleGithubBlur = () => {
-        // Light-weight validation + persist URL without forcing upload
-        setProjectState((prev) => ({
-            ...prev,
-            githubUrl: githubUrl
-        }));
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        accept: {
+            'application/zip': ['.zip'],
+            'application/x-zip-compressed': ['.zip']
+        },
+        multiple: false
+    });
+
+    const handleGithubUpload = async (e) => {
+        e.preventDefault();
+        if (!githubUrl) return;
+
+        setIsUploading(true);
+        setUploadError(null);
+
+        try {
+            await uploadGithubRepo(githubUrl, githubToken);
+            // navigate('/generate'); // Removed auto-navigation
+        } catch (error) {
+            setUploadError(error.message || 'Failed to clone repository');
+        } finally {
+            setIsUploading(false);
+        }
     };
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-                        <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/30">
-                            <FileArchive className="w-5 h-5 text-blue-400" />
-                        </span>
-                        Upload Project
-                    </h1>
-                    <p className="text-gray-400 mt-1">
-                        Upload your API project as a ZIP file or attach a GitHub repository link. We&apos;ll scan it
-                        and detect all available endpoints.
-                    </p>
-                </div>
+        <div className="max-w-4xl mx-auto space-y-8 animate-fade-in pb-10">
+            <div>
+                <h1 className="text-3xl font-bold tracking-tight">Upload Project</h1>
+                <p className="text-muted-foreground mt-1">Upload your API project as a ZIP file or attach a GitHub repository link. We'll scan it and detect all available endpoints.</p>
             </div>
 
-            {/* GitHub URL input (optional) */}
-            <div className="glass-panel rounded-2xl border border-white/5 bg-white/5 p-5 space-y-4">
-                <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-200">
-                        GitHub Repository URL (optional)
-                    </label>
-                    <input
-                        type="url"
-                        value={githubUrl}
-                        onChange={(e) => setGithubUrl(e.target.value)}
-                        onBlur={handleGithubBlur}
-                        placeholder="https://github.com/username/repository"
-                        className="w-full px-3 py-2 rounded-xl bg-black/40 border border-gray-700 text-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                </div>
+            <div className="grid grid-cols-1 gap-8">
+                <Card className="p-8">
+                    <form onSubmit={handleGithubUpload} className="space-y-6">
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-gray-300">GitHub Repository URL (optional)</label>
+                            <div className="relative">
+                                <Github className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                                <input
+                                    type="text"
+                                    value={githubUrl}
+                                    onChange={(e) => setGithubUrl(e.target.value)}
+                                    placeholder="https://github.com/username/repository"
+                                    className="w-full bg-black/20 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all"
+                                />
+                            </div>
+                        </div>
 
-                <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-200">
-                        GitHub Token (Optional - for private repos)
-                    </label>
-                    <input
-                        type="password"
-                        value={projectState.githubToken || ''}
-                        onChange={(e) => setProjectState(prev => ({ ...prev, githubToken: e.target.value }))}
-                        placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                        className="w-full px-3 py-2 rounded-xl bg-black/40 border border-gray-700 text-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                </div>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-gray-300">GitHub Token (Optional - for private repos)</label>
+                            <div className="relative">
+                                <FileCode className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+                                <input
+                                    type="password"
+                                    value={githubToken}
+                                    onChange={(e) => setGithubToken(e.target.value)}
+                                    placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                                    className="w-full bg-black/20 border border-white/10 rounded-lg py-3 pl-10 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all"
+                                />
+                            </div>
+                            <p className="text-xs text-gray-500">This is stored with your session so it won't disappear when you move between steps.</p>
+                        </div>
 
-                <p className="text-xs text-gray-400">
-                    This is stored with your session so it won&apos;t disappear when you move between steps.
-                </p>
+                        {githubUrl && (
+                            <div className="flex justify-end">
+                                <Button type="submit" isLoading={isUploading}>
+                                    Clone & Scan
+                                </Button>
+                            </div>
+                        )}
+                    </form>
+                </Card>
 
-                {/* Process GitHub Button */}
-                {githubUrl && (
-                    <button
-                        onClick={async () => {
-                            setStatus('uploading');
-                            setError(null);
-                            try {
-                                const res = await api.processGitHub(githubUrl, projectState.githubToken);
-                                const discoveredEndpoints = res.data.endpoints_data || [];
-                                setEndpoints(discoveredEndpoints);
-                                setStatus('success');
-                                setProjectState((prev) => ({
-                                    ...prev,
-                                    projectName: res.data.project_name,
-                                    uploadStatus: 'success',
-                                    endpoints: discoveredEndpoints,
-                                    githubUrl: githubUrl
-                                }));
-                            } catch (err) {
-                                console.error(err);
-                                const message = err?.response?.data?.detail || err.message || 'GitHub processing failed';
-                                setError(message);
-                                setStatus('error');
-                            }
-                        }}
-                        disabled={status === 'uploading'}
-                        className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${status === 'uploading'
-                            ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
-                            : 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:shadow-lg hover:shadow-blue-500/25 hover:-translate-y-0.5 text-white'
-                            }`}
-                    >
-                        <FileArchive className="w-5 h-5" />
-                        {status === 'uploading' ? 'Processing Repository...' : 'Process GitHub Repo'}
-                    </button>
-                )}
-            </div>
-
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="relative"
-            >
-                <label
-                    onDragEnter={handleDrag}
-                    onDragLeave={handleDrag}
-                    onDragOver={handleDrag}
-                    onDrop={handleDrop}
-                    className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-2xl cursor-pointer transition-all duration-300 ${dragActive
-                        ? 'border-blue-500 bg-blue-500/10 scale-[1.02]'
-                        : 'border-gray-700 bg-gray-900/50 hover:border-blue-400 hover:bg-gray-800'
+                <div
+                    {...getRootProps()}
+                    className={`border-2 border-dashed rounded-2xl p-12 text-center transition-all cursor-pointer ${isDragActive
+                        ? 'border-blue-500 bg-blue-500/5'
+                        : 'border-white/10 hover:border-white/20 hover:bg-white/5'
                         }`}
                 >
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <div
-                            className={`w-16 h-16 rounded-full border border-dashed border-white/10 flex items-center justify-center mb-4 ${status === 'uploading' ? 'animate-pulse' : ''
-                                }`}
-                        >
-                            {status === 'success' ? (
-                                <CheckCircle className="w-8 h-8 text-green-500" />
-                            ) : status === 'error' ? (
-                                <AlertCircle className="w-8 h-8 text-red-500" />
-                            ) : (
-                                <Upload className="w-8 h-8 text-blue-400" />
-                            )}
+                    <input {...getInputProps()} />
+                    <div className="flex flex-col items-center justify-center gap-4">
+                        <div className={`p-4 rounded-full ${isDragActive ? 'bg-blue-500/20 text-blue-500' : 'bg-white/5 text-gray-400'}`}>
+                            <Upload className="h-8 w-8" />
                         </div>
-                        <p className="mb-2 text-lg text-gray-300 font-medium">
-                            {file ? file.name : projectState.projectName || 'Drop your project zip here'}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                            {status === 'uploading'
-                                ? 'Scanning project structure...'
-                                : 'or click to browse files'}
-                        </p>
+                        <div>
+                            <h3 className="text-xl font-semibold text-white">
+                                {isDragActive ? 'Drop your project zip here' : 'Drop your project zip here'}
+                            </h3>
+                            <p className="text-gray-500 mt-1">or click to browse files</p>
+                        </div>
                     </div>
-                    <input type="file" className="hidden" onChange={handleChange} accept=".zip" />
-                </label>
-            </motion.div>
-
-            {error && (
-                <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center gap-3">
-                    <AlertCircle className="w-5 h-5" />
-                    <span className="text-sm">{error}</span>
                 </div>
-            )}
+            </div>
 
-            {/* Manual Scan Button - Show if upload success but no endpoints, or just always show for re-scan */}
-            {(status === 'success' || projectState.uploadStatus === 'success') && (
-                <div className="flex justify-end">
-                    <button
-                        onClick={async () => {
-                            setStatus('uploading'); // Reuse uploading state for scanning
-                            setError(null);
-                            try {
-                                const res = await api.scanProject();
-                                const discoveredEndpoints = res.data.endpoints_data || [];
-                                setEndpoints(discoveredEndpoints);
-                                setStatus('success');
-                                setProjectState((prev) => ({
-                                    ...prev,
-                                    endpoints: discoveredEndpoints
-                                }));
-                            } catch (err) {
-                                console.error(err);
-                                const message = err?.response?.data?.detail || err.message || 'Scan failed';
-                                setError(message);
-                                setStatus('error');
-                            }
-                        }}
-                        className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm font-medium transition-colors flex items-center gap-2"
+            <AnimatePresence>
+                {isUploading && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="p-6 rounded-xl bg-blue-500/10 border border-blue-500/20 flex flex-col items-center justify-center gap-3 text-blue-400"
                     >
-                        <RefreshCw className={`w-4 h-4 ${status === 'uploading' ? 'animate-spin' : ''}`} />
-                        {status === 'uploading' ? 'Scanning...' : 'Re-scan Project'}
-                    </button>
-                </div>
-            )}
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
+                        <p className="font-medium">Uploading and scanning project files...</p>
+                        <p className="text-sm text-blue-400/70">This might take a moment depending on the project size.</p>
+                    </motion.div>
+                )}
 
-            {endpoints.length > 0 && (
+                {uploadError && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-red-400"
+                    >
+                        <AlertCircle className="h-5 w-5" />
+                        <p>{uploadError}</p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {projectState.endpoints && projectState.endpoints.length > 0 && !isUploading && (
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="glass-panel rounded-2xl border border-white/5 bg-white/5 overflow-hidden"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-6"
                 >
-                    <div className="p-6 border-b border-white/10 flex justify-between items-center">
-                        <h3 className="text-lg font-bold text-white">Discovered Endpoints</h3>
-                        <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold">
-                            {endpoints.length} Total
-                        </span>
-                    </div>
-                    <div className="divide-y divide-white/5">
-                        {endpoints.map((ep, i) => (
-                            <div
-                                key={i}
-                                className="p-4 flex items-center gap-4 hover:bg-white/5 transition-colors"
-                            >
-                                <span
-                                    className={`px-2 py-1 rounded-full text-xs font-semibold tracking-wide inline-flex items-center justify-center ${ep.method === 'GET'
-                                        ? 'bg-blue-500/20 text-blue-300'
-                                        : ep.method === 'POST'
-                                            ? 'bg-green-500/20 text-green-300'
-                                            : 'bg-orange-500/20 text-orange-300'
-                                        }`}
-                                >
-                                    {ep.method}
-                                </span>
-                                <code className="text-sm text-gray-300 font-mono flex-1">{ep.path}</code>
-                            </div>
-                        ))}
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className="text-2xl font-bold">Detected Endpoints</h2>
+                            <p className="text-muted-foreground">Found {projectState.endpoints.length} endpoints in {projectState.projectName}</p>
+                        </div>
+                        <Button onClick={() => navigate('/generate')} variant="primary">
+                            Go to Test Generation
+                        </Button>
                     </div>
 
-                    {/* Generate Test Cases Button */}
-                    <div className="p-6 border-t border-white/10">
-                        <button
-                            onClick={() => {
-                                // Set a flag to auto-trigger generation
-                                setProjectState(prev => ({ ...prev, autoGenerateTests: true }));
-                                navigate('/generate');
-                            }}
-                            className="w-full py-4 rounded-xl font-bold flex items-center justify-center gap-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:shadow-lg hover:shadow-purple-500/25 hover:-translate-y-0.5 text-white transition-all"
-                        >
-                            <Zap className="w-5 h-5" />
-                            Generate Test Cases
-                        </button>
-                    </div>
+                    <Card className="overflow-hidden">
+                        <div className="divide-y divide-white/10">
+                            {projectState.endpoints.map((endpoint, index) => (
+                                <div key={index} className="p-4 hover:bg-white/5 transition-colors flex items-center gap-4">
+                                    <span className={`
+                                        px-2 py-1 rounded text-xs font-bold uppercase w-16 text-center
+                                        ${endpoint.method === 'GET' ? 'bg-blue-500/20 text-blue-400' : ''}
+                                        ${endpoint.method === 'POST' ? 'bg-green-500/20 text-green-400' : ''}
+                                        ${endpoint.method === 'PUT' ? 'bg-orange-500/20 text-orange-400' : ''}
+                                        ${endpoint.method === 'DELETE' ? 'bg-red-500/20 text-red-400' : ''}
+                                        ${!['GET', 'POST', 'PUT', 'DELETE'].includes(endpoint.method) ? 'bg-gray-500/20 text-gray-400' : ''}
+                                    `}>
+                                        {endpoint.method}
+                                    </span>
+                                    <code className="text-sm text-gray-300 font-mono">{endpoint.path}</code>
+                                </div>
+                            ))}
+                        </div>
+                    </Card>
                 </motion.div>
             )}
         </div>

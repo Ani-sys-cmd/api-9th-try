@@ -187,6 +187,8 @@ async def upload_project(file: UploadFile = File(...), user_id: str = Depends(ge
 
         return {
             "message": "Project scanned successfully",
+            "project_name": file.filename,
+            "upload_path": file_location,
             "endpoints_found": len(endpoints),
             "endpoints_data": endpoints
         }
@@ -359,6 +361,7 @@ async def process_github(request: ProcessGitHubRequest, user_id: str = Depends(g
         return {
             "message": "GitHub repository processed successfully",
             "project_name": f"{repo_name}.zip",
+            "upload_path": zip_path,
             "endpoints_found": len(endpoints),
             "endpoints_data": endpoints
         }

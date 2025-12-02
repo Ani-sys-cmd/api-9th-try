@@ -4,6 +4,8 @@ import { api } from '../api';
 import LogTerminal from '../components/Features/LogTerminal';
 import HealingModal from '../components/HealingModal';
 import TestFailureModal from '../components/TestFailureModal';
+import Card from '../components/common/Card';
+import Button from '../components/common/Button';
 
 const TestRunner = () => {
     const [status, setStatus] = useState('idle'); // idle, running, done, error
@@ -42,24 +44,22 @@ const TestRunner = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto space-y-8">
+        <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
             <div className="flex items-end justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Test Runner</h1>
-                    <p className="text-gray-400">Execute generated tests with the RL-driven engine.</p>
+                    <h1 className="text-3xl font-bold tracking-tight">Test Runner</h1>
+                    <p className="text-muted-foreground mt-1">Execute generated tests with the RL-driven engine.</p>
                 </div>
 
-                <button
+                <Button
                     onClick={handleRun}
                     disabled={status === 'running'}
-                    className={`px-8 py-3 rounded-xl font-bold flex items-center gap-3 transition-all ${status === 'running'
-                        ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:shadow-lg hover:shadow-emerald-500/25 hover:-translate-y-0.5 text-white'
-                        }`}
+                    className="px-8 py-3"
+                    variant={status === 'running' ? 'secondary' : 'primary'}
                 >
-                    <Play className={`w-5 h-5 ${status === 'running' ? 'animate-pulse' : ''}`} />
+                    <Play className={`mr-2 w-5 h-5 ${status === 'running' ? 'animate-pulse' : ''}`} />
                     {status === 'running' ? 'Running Tests...' : 'Execute Test Suite'}
-                </button>
+                </Button>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -71,8 +71,8 @@ const TestRunner = () => {
                 {/* Results Section */}
                 <div className="lg:col-span-1 space-y-6">
                     {testResults ? (
-                        <div className="glass-panel p-6 rounded-2xl border border-white/5 bg-white/5 animate-fade-in">
-                            <h3 className="text-lg font-bold text-white mb-6 flex items-center justify-between">
+                        <Card className="animate-fade-in">
+                            <h3 className="text-lg font-bold mb-6 flex items-center justify-between">
                                 Results Summary
                                 <span className="text-xs font-mono bg-purple-500/20 text-purple-300 px-2 py-1 rounded">
                                     Reward: {testResults.reward}
@@ -110,26 +110,26 @@ const TestRunner = () => {
 
                             {testResults.summary.failed > 0 && (
                                 <div className="mt-6 space-y-3">
-                                    <button
+                                    <Button
                                         onClick={() => openHealing('test')}
-                                        className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all flex items-center justify-center gap-2"
+                                        className="w-full bg-blue-600 hover:bg-blue-500"
                                     >
-                                        <span>🤖</span> Heal Test Case
-                                    </button>
-                                    <button
+                                        <span className="mr-2">🤖</span> Heal Test Case
+                                    </Button>
+                                    <Button
                                         onClick={() => openHealing('code')}
-                                        className="w-full py-3 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm transition-all flex items-center justify-center gap-2"
+                                        className="w-full bg-orange-600 hover:bg-orange-500"
                                     >
-                                        <Code className="w-4 h-4" /> Diagnose Code
-                                    </button>
+                                        <Code className="mr-2 w-4 h-4" /> Diagnose Code
+                                    </Button>
                                 </div>
                             )}
-                        </div>
+                        </Card>
                     ) : (
-                        <div className="glass-panel p-6 rounded-2xl border border-white/5 bg-white/5 h-full flex flex-col items-center justify-center text-center opacity-50">
-                            <Activity className="w-12 h-12 text-gray-600 mb-4" />
-                            <p className="text-gray-400">Run tests to see results here</p>
-                        </div>
+                        <Card className="h-full flex flex-col items-center justify-center text-center opacity-50 min-h-[300px]">
+                            <Activity className="w-12 h-12 text-muted-foreground mb-4" />
+                            <p className="text-muted-foreground">Run tests to see results here</p>
+                        </Card>
                     )}
                 </div>
             </div>
