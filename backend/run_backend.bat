@@ -1,0 +1,3 @@
+@echo off
+echo Starting Backend with Test File Exclusion...
+python -m uvicorn main:app --reload --app-dir app --reload-exclude "tests/*"

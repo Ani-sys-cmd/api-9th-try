@@ -52,7 +52,9 @@ class TestGenerator:
         1. Use 'import pytest' and 'import requests'.
         2. Define a fixture 'base_url'.
         3. Write test functions starting with 'test_'.
-        4. Return ONLY raw python code.
+        4. CRITICAL: When asserting status code, ALWAYS print the response text if it fails.
+           Example: assert response.status_code == 200, f"Expected 200 but got {{response.status_code}}. Response: {{response.text}}"
+        5. Return ONLY raw python code.
         """
 
         try:

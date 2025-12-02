@@ -1,0 +1,203 @@
+{
+    "project_name": "ecommerce_api.zip",
+    "upload_path": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\uploads\\ecommerce_api.zip",
+    "endpoints": [
+        {
+            "path": "/cart",
+            "method": "GET",
+            "description": "Detected GET endpoint at /cart",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\server.js"
+        },
+        {
+            "path": "/cart",
+            "method": "POST",
+            "description": "Detected POST endpoint at /cart",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\server.js"
+        },
+        {
+            "path": "/cart/:productId",
+            "method": "DELETE",
+            "description": "Detected DELETE endpoint at /cart/:productId",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\server.js"
+        },
+        {
+            "path": "/checkout",
+            "method": "POST",
+            "description": "Detected POST endpoint at /checkout",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\server.js"
+        },
+        {
+            "path": "/",
+            "method": "POST",
+            "description": "Detected POST endpoint at /",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\orders.js"
+        },
+        {
+            "path": "/:id",
+            "method": "GET",
+            "description": "Detected GET endpoint at /:id",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\orders.js"
+        },
+        {
+            "path": "/",
+            "method": "GET",
+            "description": "Detected GET endpoint at /",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\products.js"
+        },
+        {
+            "path": "/:id",
+            "method": "GET",
+            "description": "Detected GET endpoint at /:id",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\products.js"
+        },
+        {
+            "path": "/",
+            "method": "POST",
+            "description": "Detected POST endpoint at /",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\products.js"
+        },
+        {
+            "path": "/:id",
+            "method": "DELETE",
+            "description": "Detected DELETE endpoint at /:id",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\products.js"
+        },
+        {
+            "path": "/:productId",
+            "method": "GET",
+            "description": "Detected GET endpoint at /:productId",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\reviews.js"
+        },
+        {
+            "path": "/:productId",
+            "method": "POST",
+            "description": "Detected POST endpoint at /:productId",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\reviews.js"
+        },
+        {
+            "path": "/register",
+            "method": "POST",
+            "description": "Detected POST endpoint at /register",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\users.js"
+        },
+        {
+            "path": "/login",
+            "method": "POST",
+            "description": "Detected POST endpoint at /login",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\325YxbiQ9dbWYcjjHd57ejpx3zn1\\extracted\\ecommerce_api\\ecommerce_api\\routes\\users.js"
+        }
+    ],
+    "test_file": "tests\\generated\\test_ecommerce_api.py",
+    "latest_results": {
+        "status": "failure",
+        "summary": {
+            "passed": 0,
+            "failed": 12,
+            "error": 0,
+            "total": 12
+        },
+        "reward": -60.0,
+        "logs": "============================= test session starts =============================\nplatform win32 -- Python 3.10.0, pytest-9.0.1, pluggy-1.6.0 -- C:\\Users\\Satish\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\ncachedir: .pytest_cache\nrootdir: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\nplugins: anyio-4.6.2.post1, Faker-37.12.0\ncollecting ... collected 12 items\n\ntests/generated/test_ecommerce_api.py::test_register_user FAILED         [  8%]\ntests/generated/test_ecommerce_api.py::test_login_user FAILED            [ 16%]\ntests/generated/test_ecommerce_api.py::test_create_product FAILED        [ 25%]\ntests/generated/test_ecommerce_api.py::test_get_all_products FAILED      [ 33%]\ntests/generated/test_ecommerce_api.py::test_get_product_by_id FAILED     [ 41%]\ntests/generated/test_ecommerce_api.py::test_add_item_to_cart FAILED      [ 50%]\ntests/generated/test_ecommerce_api.py::test_get_cart_contents FAILED     [ 58%]\ntests/generated/test_ecommerce_api.py::test_delete_item_from_cart FAILED [ 66%]\ntests/generated/test_ecommerce_api.py::test_checkout FAILED              [ 75%]\ntests/generated/test_ecommerce_api.py::test_post_review FAILED           [ 83%]\ntests/generated/test_ecommerce_api.py::test_get_reviews FAILED           [ 91%]\ntests/generated/test_ecommerce_api.py::test_delete_product FAILED        [100%]\n\n================================== FAILURES ===================================\n_____________________________ test_register_user ______________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_register_user(base_url):\n        \"\"\"Test user registration (Endpoint 13).\"\"\"\n        endpoint = \"/register\"\n        url = base_url + endpoint\n    \n        # Generate unique user credentials for each test run\n        username = f\"testuser_{generate_random_string()}\"\n        password = \"password123\"\n        test_context['user_credentials'] = {'username': username, 'password': password}\n    \n        payload = test_context['user_credentials']\n    \n        response = requests.post(url, json=payload)\n    \n>       assert response.status_code == 201, f\"Expected 201 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 201 but got 404. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /register</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 201\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:44: AssertionError\n_______________________________ test_login_user _______________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_login_user(base_url):\n        \"\"\"Test user login and token retrieval (Endpoint 14).\"\"\"\n        endpoint = \"/login\"\n        url = base_url + endpoint\n    \n        # Use credentials from the registration test\n        payload = test_context.get('user_credentials')\n        assert payload is not None, \"User credentials not found from registration test.\"\n    \n        response = requests.post(url, json=payload)\n    \n>       assert response.status_code == 200, f\"Expected 200 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 200 but got 404. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /login</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:61: AssertionError\n_____________________________ test_create_product _____________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_create_product(base_url):\n        \"\"\"Test creating a new product (Endpoint 9: POST /).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:75: AssertionError\n____________________________ test_get_all_products ____________________________\n\nself = <Response [200]>, kwargs = {}\n\n    def json(self, **kwargs):\n        r\"\"\"Returns the json-encoded content of a response, if any.\n    \n        :param \\*\\*kwargs: Optional arguments that ``json.loads`` takes.\n        :raises requests.exceptions.JSONDecodeError: If the response body does not\n            contain valid json.\n        \"\"\"\n    \n        if not self.encoding and self.content and len(self.content) > 3:\n            # No encoding set. JSON RFC 4627 section 3 states we should expect\n            # UTF-8, -16 or -32. Detect which one to use; If the detection or\n            # decoding fails, fall back to `self.text` (using charset_normalizer to make\n            # a best guess).\n            encoding = guess_json_utf(self.content)\n            if encoding is not None:\n                try:\n                    return complexjson.loads(self.content.decode(encoding), **kwargs)\n                except UnicodeDecodeError:\n                    # Wrong UTF codec detected; usually because it's not UTF-8\n                    # but some other 8-bit codec.  This is an RFC violation,\n                    # and the server didn't bother to tell us what codec *was*\n                    # used.\n                    pass\n                except JSONDecodeError as e:\n                    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\n    \n        try:\n>           return complexjson.loads(self.text, **kwargs)\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\requests\\models.py:974: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\json\\__init__.py:346: in loads\n    return _default_decoder.decode(s)\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\json\\decoder.py:337: in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <json.decoder.JSONDecoder object at 0x0000019120F40DC0>\ns = '<!DOCTYPE html>\\r\\n<html lang=\"en\">\\r\\n<head>\\r\\n    <meta charset=\"UTF-8\">\\r\\n    <meta name=\"viewport\" content=\"wid...n>\\r\\n\\r\\n    <div id=\"toast\" class=\"toast\"></div>\\r\\n\\r\\n    <script src=\"app.js\"></script>\\r\\n</body>\\r\\n</html>\\r\\n'\nidx = 0\n\n    def raw_decode(self, s, idx=0):\n        \"\"\"Decode a JSON document from ``s`` (a ``str`` beginning with\n        a JSON document) and return a 2-tuple of the Python\n        representation and the index in ``s`` where the document ended.\n    \n        This can be used to decode a JSON document from a string that may\n        have extraneous data at the end.\n    \n        \"\"\"\n        try:\n            obj, end = self.scan_once(s, idx)\n        except StopIteration as err:\n>           raise JSONDecodeError(\"Expecting value\", s, err.value) from None\nE           json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\json\\decoder.py:355: JSONDecodeError\n\nDuring handling of the above exception, another exception occurred:\n\nbase_url = 'http://localhost:3000'\n\n    def test_get_all_products(base_url):\n        \"\"\"Test retrieving all products (Endpoint 7: GET /).\"\"\"\n        endpoint = \"/\"\n        url = base_url + endpoint\n        response = requests.get(url)\n    \n        assert response.status_code == 200, f\"Expected 200 but got {response.status_code}. Response: {response.text}\"\n>       response_data = response.json()\n\ntests\\generated\\test_ecommerce_api.py:106: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <Response [200]>, kwargs = {}\n\n    def json(self, **kwargs):\n        r\"\"\"Returns the json-encoded content of a response, if any.\n    \n        :param \\*\\*kwargs: Optional arguments that ``json.loads`` takes.\n        :raises requests.exceptions.JSONDecodeError: If the response body does not\n            contain valid json.\n        \"\"\"\n    \n        if not self.encoding and self.content and len(self.content) > 3:\n            # No encoding set. JSON RFC 4627 section 3 states we should expect\n            # UTF-8, -16 or -32. Detect which one to use; If the detection or\n            # decoding fails, fall back to `self.text` (using charset_normalizer to make\n            # a best guess).\n            encoding = guess_json_utf(self.content)\n            if encoding is not None:\n                try:\n                    return complexjson.loads(self.content.decode(encoding), **kwargs)\n                except UnicodeDecodeError:\n                    # Wrong UTF codec detected; usually because it's not UTF-8\n                    # but some other 8-bit codec.  This is an RFC violation,\n                    # and the server didn't bother to tell us what codec *was*\n                    # used.\n                    pass\n                except JSONDecodeError as e:\n                    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\n    \n        try:\n            return complexjson.loads(self.text, **kwargs)\n        except JSONDecodeError as e:\n            # Catch JSON-related errors and raise as requests.JSONDecodeError\n            # This aliases json.JSONDecodeError and simplejson.JSONDecodeError\n>           raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\nE           requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\requests\\models.py:978: JSONDecodeError\n___________________________ test_get_product_by_id ____________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_get_product_by_id(base_url):\n        \"\"\"Test retrieving a single product by its ID (Endpoint 6 or 8: GET /:id).\"\"\"\n>       assert 'product_id' in test_context, \"Product ID not found. Create product test must run first.\"\nE       AssertionError: Product ID not found. Create product test must run first.\nE       assert 'product_id' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:115: AssertionError\n____________________________ test_add_item_to_cart ____________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_add_item_to_cart(base_url):\n        \"\"\"Test adding an item to the cart (Endpoint 2: POST /cart).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:132: AssertionError\n___________________________ test_get_cart_contents ____________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_get_cart_contents(base_url):\n        \"\"\"Test retrieving the cart's contents (Endpoint 1: GET /cart).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:153: AssertionError\n_________________________ test_delete_item_from_cart __________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_delete_item_from_cart(base_url):\n        \"\"\"Test deleting an item from the cart (Endpoint 3: DELETE /cart/:productId).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:168: AssertionError\n________________________________ test_checkout ________________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_checkout(base_url):\n        \"\"\"Test the checkout process (Endpoint 4: POST /checkout).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:192: AssertionError\n______________________________ test_post_review _______________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_post_review(base_url):\n        \"\"\"Test posting a review for a product (Interpreting Endpoint 12: POST /:productId).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:221: AssertionError\n______________________________ test_get_reviews _______________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_get_reviews(base_url):\n        \"\"\"Test getting reviews for a product (Interpreting Endpoint 11: GET /:productId).\"\"\"\n>       assert 'product_id' in test_context, \"Product ID not found. Create product test must run first.\"\nE       AssertionError: Product ID not found. Create product test must run first.\nE       assert 'product_id' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:245: AssertionError\n_____________________________ test_delete_product _____________________________\n\nbase_url = 'http://localhost:3000'\n\n    def test_delete_product(base_url):\n        \"\"\"Test deleting the created product (Endpoint 10: DELETE /:id).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:268: AssertionError\n- generated xml file: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\storage\\results\\report.xml -\n============================= 12 failed in 1.46s ==============================\n",
+        "test_file": "tests\\generated\\test_ecommerce_api.py",
+        "failures": [
+            {
+                "nodeid": "test_register_user",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Expected 201 but got 404. Response: <!DOCTYPE html>\n  <html lang=\"en\">\n  <head>\n  <meta charset=\"utf-8\">\n  <title>Error</title>\n  </head>\n  <body>\n  <pre>Cannot POST /register</pre>\n  </body>\n  </html>\n  \nassert 404 == 201\n +  where 404 = <Response [404]>.status_code",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_register_user(base_url):\n        \"\"\"Test user registration (Endpoint 13).\"\"\"\n        endpoint = \"/register\"\n        url = base_url + endpoint\n    \n        # Generate unique user credentials for each test run\n        username = f\"testuser_{generate_random_string()}\"\n        password = \"password123\"\n        test_context['user_credentials'] = {'username': username, 'password': password}\n    \n        payload = test_context['user_credentials']\n    \n        response = requests.post(url, json=payload)\n    \n>       assert response.status_code == 201, f\"Expected 201 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 201 but got 404. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /register</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 201\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:44: AssertionError"
+            },
+            {
+                "nodeid": "test_login_user",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Expected 200 but got 404. Response: <!DOCTYPE html>\n  <html lang=\"en\">\n  <head>\n  <meta charset=\"utf-8\">\n  <title>Error</title>\n  </head>\n  <body>\n  <pre>Cannot POST /login</pre>\n  </body>\n  </html>\n  \nassert 404 == 200\n +  where 404 = <Response [404]>.status_code",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_login_user(base_url):\n        \"\"\"Test user login and token retrieval (Endpoint 14).\"\"\"\n        endpoint = \"/login\"\n        url = base_url + endpoint\n    \n        # Use credentials from the registration test\n        payload = test_context.get('user_credentials')\n        assert payload is not None, \"User credentials not found from registration test.\"\n    \n        response = requests.post(url, json=payload)\n    \n>       assert response.status_code == 200, f\"Expected 200 but got {response.status_code}. Response: {response.text}\"\nE       AssertionError: Expected 200 but got 404. Response: <!DOCTYPE html>\nE         <html lang=\"en\">\nE         <head>\nE         <meta charset=\"utf-8\">\nE         <title>Error</title>\nE         </head>\nE         <body>\nE         <pre>Cannot POST /login</pre>\nE         </body>\nE         </html>\nE         \nE       assert 404 == 200\nE        +  where 404 = <Response [404]>.status_code\n\ntests\\generated\\test_ecommerce_api.py:61: AssertionError"
+            },
+            {
+                "nodeid": "test_create_product",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Auth token not found. Login test must run first.\nassert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_create_product(base_url):\n        \"\"\"Test creating a new product (Endpoint 9: POST /).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:75: AssertionError"
+            },
+            {
+                "nodeid": "test_get_all_products",
+                "file": null,
+                "line": null,
+                "message": "requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+                "longrepr": "self = <Response [200]>, kwargs = {}\n\n    def json(self, **kwargs):\n        r\"\"\"Returns the json-encoded content of a response, if any.\n    \n        :param \\*\\*kwargs: Optional arguments that ``json.loads`` takes.\n        :raises requests.exceptions.JSONDecodeError: If the response body does not\n            contain valid json.\n        \"\"\"\n    \n        if not self.encoding and self.content and len(self.content) > 3:\n            # No encoding set. JSON RFC 4627 section 3 states we should expect\n            # UTF-8, -16 or -32. Detect which one to use; If the detection or\n            # decoding fails, fall back to `self.text` (using charset_normalizer to make\n            # a best guess).\n            encoding = guess_json_utf(self.content)\n            if encoding is not None:\n                try:\n                    return complexjson.loads(self.content.decode(encoding), **kwargs)\n                except UnicodeDecodeError:\n                    # Wrong UTF codec detected; usually because it's not UTF-8\n                    # but some other 8-bit codec.  This is an RFC violation,\n                    # and the server didn't bother to tell us what codec *was*\n                    # used.\n                    pass\n                except JSONDecodeError as e:\n                    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\n    \n        try:\n>           return complexjson.loads(self.text, **kwargs)\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\requests\\models.py:974: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\json\\__init__.py:346: in loads\n    return _default_decoder.decode(s)\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\json\\decoder.py:337: in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <json.decoder.JSONDecoder object at 0x0000019120F40DC0>\ns = '<!DOCTYPE html>\\r\\n<html lang=\"en\">\\r\\n<head>\\r\\n    <meta charset=\"UTF-8\">\\r\\n    <meta name=\"viewport\" content=\"wid...n>\\r\\n\\r\\n    <div id=\"toast\" class=\"toast\"></div>\\r\\n\\r\\n    <script src=\"app.js\"></script>\\r\\n</body>\\r\\n</html>\\r\\n'\nidx = 0\n\n    def raw_decode(self, s, idx=0):\n        \"\"\"Decode a JSON document from ``s`` (a ``str`` beginning with\n        a JSON document) and return a 2-tuple of the Python\n        representation and the index in ``s`` where the document ended.\n    \n        This can be used to decode a JSON document from a string that may\n        have extraneous data at the end.\n    \n        \"\"\"\n        try:\n            obj, end = self.scan_once(s, idx)\n        except StopIteration as err:\n>           raise JSONDecodeError(\"Expecting value\", s, err.value) from None\nE           json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\json\\decoder.py:355: JSONDecodeError\n\nDuring handling of the above exception, another exception occurred:\n\nbase_url = 'http://localhost:3000'\n\n    def test_get_all_products(base_url):\n        \"\"\"Test retrieving all products (Endpoint 7: GET /).\"\"\"\n        endpoint = \"/\"\n        url = base_url + endpoint\n        response = requests.get(url)\n    \n        assert response.status_code == 200, f\"Expected 200 but got {response.status_code}. Response: {response.text}\"\n>       response_data = response.json()\n\ntests\\generated\\test_ecommerce_api.py:106: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <Response [200]>, kwargs = {}\n\n    def json(self, **kwargs):\n        r\"\"\"Returns the json-encoded content of a response, if any.\n    \n        :param \\*\\*kwargs: Optional arguments that ``json.loads`` takes.\n        :raises requests.exceptions.JSONDecodeError: If the response body does not\n            contain valid json.\n        \"\"\"\n    \n        if not self.encoding and self.content and len(self.content) > 3:\n            # No encoding set. JSON RFC 4627 section 3 states we should expect\n            # UTF-8, -16 or -32. Detect which one to use; If the detection or\n            # decoding fails, fall back to `self.text` (using charset_normalizer to make\n            # a best guess).\n            encoding = guess_json_utf(self.content)\n            if encoding is not None:\n                try:\n                    return complexjson.loads(self.content.decode(encoding), **kwargs)\n                except UnicodeDecodeError:\n                    # Wrong UTF codec detected; usually because it's not UTF-8\n                    # but some other 8-bit codec.  This is an RFC violation,\n                    # and the server didn't bother to tell us what codec *was*\n                    # used.\n                    pass\n                except JSONDecodeError as e:\n                    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\n    \n        try:\n            return complexjson.loads(self.text, **kwargs)\n        except JSONDecodeError as e:\n            # Catch JSON-related errors and raise as requests.JSONDecodeError\n            # This aliases json.JSONDecodeError and simplejson.JSONDecodeError\n>           raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)\nE           requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\requests\\models.py:978: JSONDecodeError"
+            },
+            {
+                "nodeid": "test_get_product_by_id",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Product ID not found. Create product test must run first.\nassert 'product_id' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_get_product_by_id(base_url):\n        \"\"\"Test retrieving a single product by its ID (Endpoint 6 or 8: GET /:id).\"\"\"\n>       assert 'product_id' in test_context, \"Product ID not found. Create product test must run first.\"\nE       AssertionError: Product ID not found. Create product test must run first.\nE       assert 'product_id' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:115: AssertionError"
+            },
+            {
+                "nodeid": "test_add_item_to_cart",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Auth token not found. Login test must run first.\nassert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_add_item_to_cart(base_url):\n        \"\"\"Test adding an item to the cart (Endpoint 2: POST /cart).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:132: AssertionError"
+            },
+            {
+                "nodeid": "test_get_cart_contents",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Auth token not found. Login test must run first.\nassert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_get_cart_contents(base_url):\n        \"\"\"Test retrieving the cart's contents (Endpoint 1: GET /cart).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:153: AssertionError"
+            },
+            {
+                "nodeid": "test_delete_item_from_cart",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Auth token not found. Login test must run first.\nassert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_delete_item_from_cart(base_url):\n        \"\"\"Test deleting an item from the cart (Endpoint 3: DELETE /cart/:productId).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:168: AssertionError"
+            },
+            {
+                "nodeid": "test_checkout",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Auth token not found. Login test must run first.\nassert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_checkout(base_url):\n        \"\"\"Test the checkout process (Endpoint 4: POST /checkout).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:192: AssertionError"
+            },
+            {
+                "nodeid": "test_post_review",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Auth token not found. Login test must run first.\nassert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_post_review(base_url):\n        \"\"\"Test posting a review for a product (Interpreting Endpoint 12: POST /:productId).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:221: AssertionError"
+            },
+            {
+                "nodeid": "test_get_reviews",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Product ID not found. Create product test must run first.\nassert 'product_id' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_get_reviews(base_url):\n        \"\"\"Test getting reviews for a product (Interpreting Endpoint 11: GET /:productId).\"\"\"\n>       assert 'product_id' in test_context, \"Product ID not found. Create product test must run first.\"\nE       AssertionError: Product ID not found. Create product test must run first.\nE       assert 'product_id' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:245: AssertionError"
+            },
+            {
+                "nodeid": "test_delete_product",
+                "file": null,
+                "line": null,
+                "message": "AssertionError: Auth token not found. Login test must run first.\nassert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}",
+                "longrepr": "base_url = 'http://localhost:3000'\n\n    def test_delete_product(base_url):\n        \"\"\"Test deleting the created product (Endpoint 10: DELETE /:id).\"\"\"\n>       assert 'auth_headers' in test_context, \"Auth token not found. Login test must run first.\"\nE       AssertionError: Auth token not found. Login test must run first.\nE       assert 'auth_headers' in {'user_credentials': {'password': 'password123', 'username': 'testuser_yqfuhffbmo'}}\n\ntests\\generated\\test_ecommerce_api.py:268: AssertionError"
+            }
+        ]
+    }
+}

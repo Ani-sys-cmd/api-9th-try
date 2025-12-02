@@ -33,7 +33,11 @@ const TestRunner = () => {
     };
 
     const openHealing = (type) => {
-        setSelectedFailure({ type, logs: testResults?.logs, testFile: testResults?.test_file });
+        const logsToPass = type === 'test'
+            ? JSON.stringify(testResults?.failures || [], null, 2)
+            : testResults?.logs;
+
+        setSelectedFailure({ type, logs: logsToPass, testFile: testResults?.test_file });
         setShowHealingModal(true);
     };
 
@@ -49,8 +53,8 @@ const TestRunner = () => {
                     onClick={handleRun}
                     disabled={status === 'running'}
                     className={`px-8 py-3 rounded-xl font-bold flex items-center gap-3 transition-all ${status === 'running'
-                            ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
-                            : 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:shadow-lg hover:shadow-emerald-500/25 hover:-translate-y-0.5 text-white'
+                        ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:shadow-lg hover:shadow-emerald-500/25 hover:-translate-y-0.5 text-white'
                         }`}
                 >
                     <Play className={`w-5 h-5 ${status === 'running' ? 'animate-pulse' : ''}`} />

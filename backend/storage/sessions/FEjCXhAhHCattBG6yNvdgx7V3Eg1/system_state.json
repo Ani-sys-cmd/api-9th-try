@@ -1,0 +1,48 @@
+{
+    "project_name": "sample_project.zip",
+    "upload_path": "storage\\sessions\\FEjCXhAhHCattBG6yNvdgx7V3Eg1\\uploads\\sample_project.zip",
+    "endpoints": [
+        {
+            "path": "/api/health",
+            "method": "GET",
+            "description": "Detected GET endpoint at /api/health",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\FEjCXhAhHCattBG6yNvdgx7V3Eg1\\extracted\\sample_project\\sample_project\\server.js"
+        },
+        {
+            "path": "/api/users",
+            "method": "GET",
+            "description": "Detected GET endpoint at /api/users",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\FEjCXhAhHCattBG6yNvdgx7V3Eg1\\extracted\\sample_project\\sample_project\\server.js"
+        },
+        {
+            "path": "/api/process",
+            "method": "POST",
+            "description": "Detected POST endpoint at /api/process",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\FEjCXhAhHCattBG6yNvdgx7V3Eg1\\extracted\\sample_project\\sample_project\\server.js"
+        },
+        {
+            "path": "/api/db-test",
+            "method": "GET",
+            "description": "Detected GET endpoint at /api/db-test",
+            "payload_schema": {},
+            "source_file": "storage\\sessions\\FEjCXhAhHCattBG6yNvdgx7V3Eg1\\extracted\\sample_project\\sample_project\\server.js"
+        }
+    ],
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_sample_project.py",
+    "latest_results": {
+        "status": "success",
+        "summary": {
+            "passed": 4,
+            "failed": 0,
+            "error": 0,
+            "total": 4
+        },
+        "reward": 4.0,
+        "logs": "============================= test session starts =============================\nplatform win32 -- Python 3.10.0, pytest-9.0.1, pluggy-1.6.0 -- C:\\Users\\Satish\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\ncachedir: .pytest_cache\nrootdir: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\nplugins: anyio-4.6.2.post1, Faker-37.12.0\ncollecting ... collected 4 items\n\ntests/generated/test_sample_project.py::test_get_health PASSED           [ 25%]\ntests/generated/test_sample_project.py::test_get_users PASSED            [ 50%]\ntests/generated/test_sample_project.py::test_post_process PASSED         [ 75%]\ntests/generated/test_sample_project.py::test_get_db_test PASSED          [100%]\n\n=================================== PASSES ====================================\n- generated xml file: C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\storage\\results\\report.xml -\n============================== 4 passed in 1.01s ==============================\n",
+        "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_sample_project.py",
+        "failures": []
+    }
+}

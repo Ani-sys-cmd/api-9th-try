@@ -90,7 +90,43 @@ const HealingModal = ({ failure, onClose, onRetest }) => {
                                     <strong>Diagnosis Complete</strong>
                                 </div>
                                 <div className="prose prose-invert max-w-none bg-white/5 p-4 rounded-xl border border-white/10 overflow-y-auto max-h-96 custom-scrollbar">
-                                    <p className="text-gray-300 whitespace-pre-wrap text-sm leading-relaxed">{result.analysis}</p>
+                                    {typeof result.analysis === 'object' && result.analysis !== null ? (
+                                        <div className="space-y-6">
+                                            <div>
+                                                <h3 className="text-blue-400 font-bold text-base mb-2 flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                                                    Explanation
+                                                </h3>
+                                                <p className="text-gray-300 text-sm leading-relaxed pl-3.5 border-l border-blue-500/30">
+                                                    {result.analysis.explanation}
+                                                </p>
+                                            </div>
+
+                                            <div>
+                                                <h3 className="text-purple-400 font-bold text-base mb-2 flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                                                    Recommendation
+                                                </h3>
+                                                <p className="text-gray-300 text-sm leading-relaxed pl-3.5 border-l border-purple-500/30">
+                                                    {result.analysis.recommendation}
+                                                </p>
+                                            </div>
+
+                                            <div>
+                                                <h3 className="text-green-400 font-bold text-base mb-2 flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                                                    Solution Code
+                                                </h3>
+                                                <div className="bg-black/30 rounded-lg border border-white/10 overflow-hidden">
+                                                    <pre className="p-3 text-xs text-blue-200 font-mono overflow-x-auto">
+                                                        {result.analysis.solution}
+                                                    </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <p className="text-gray-300 whitespace-pre-wrap text-sm leading-relaxed">{result.analysis}</p>
+                                    )}
                                 </div>
                                 <p className="text-sm text-gray-400 mt-2 flex items-center gap-2">
                                     <span className="w-1.5 h-1.5 rounded-full bg-orange-400"></span>

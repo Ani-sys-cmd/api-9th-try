@@ -152,7 +152,7 @@ class HealTestRequest(BaseModel):
     failure_logs: str
 
 class DiagnoseRequest(BaseModel):
-    source_file: str
+    source_file: Optional[str] = None
     error_logs: str
 
 # --- Endpoints ---

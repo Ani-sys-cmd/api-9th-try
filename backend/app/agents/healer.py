@@ -1,7 +1,10 @@
 import os
+import time
+import random
 import google.generativeai as genai
 from typing import Dict, Any
 from dotenv import load_dotenv
+import json
 
 # Load environment variables
 load_dotenv()
@@ -12,6 +15,27 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 class SelfHealingAgent:
     def __init__(self):
         self.model = genai.GenerativeModel('gemini-2.5-pro')
+
+    def _generate_with_retry(self, prompt: str, max_retries: int = 3) -> str:
+        """
+        Helper to generate content with exponential backoff for rate limits (429).
+        """
+        for attempt in range(max_retries):
+            try:
+                response = self.model.generate_content(prompt)
+                return response.text
+            except Exception as e:
+                error_str = str(e)
+                if "429" in error_str or "Quota exceeded" in error_str:
+                    if attempt < max_retries - 1:
+                        # Exponential backoff: 2s, 4s, 8s... + jitter
+                        wait_time = (2 ** attempt) * 2 + random.uniform(0, 1)
+                        print(f"Rate limit hit. Retrying in {wait_time:.2f}s...")
+                        time.sleep(wait_time)
+                        continue
+                # If it's not a rate limit or we ran out of retries, raise it
+                raise e
+        raise Exception("Max retries exceeded for Gemini API")
 
     def heal_test_case(self, test_file_path: str, failure_logs: str) -> Dict[str, Any]:
         """
@@ -27,32 +51,51 @@ class SelfHealingAgent:
 
             # Prompt for the Healer Agent
             prompt = f"""
-            You are an AI Test Repair Agent.
+            You are an Expert Python Test Engineer and Pytest Specialist.
             
-            **Context:**
-            A Python 'pytest' script failed during execution. Your job is to fix the test code 
-            so it passes, assuming the API is working correctly (aligning the test to the actual API behavior).
+            **Objective:**
+            Fix the provided 'pytest' script so that ALL tests pass. The API implementation is considered the "Source of Truth" — if the test expects 200 but gets 201, CHANGE THE TEST to expect 201.
             
-            **The Failing Test Code:**
+            **Input Data:**
+            1. **Failing Test Code:**
+            ```python
             {current_test_code}
+            ```
             
-            **The Execution Logs (Failure Details):**
+            2. **Failure Report (JSON):**
             {failure_logs}
             
-            **Instructions:**
-            1. Analyze the assertion error (e.g., expected 201 but got 200, or JSON key missing).
-            2. Rewrite the Python code to handle the actual response found in the logs.
-            3. Return ONLY the full corrected Python code. No markdown formatting.
+            **Critical Instructions:**
+            1. **Analyze EVERY Failure:** Read the JSON report carefully. It lists every failed test function (`nodeid`), the error message, and the traceback.
+            2. **Fix ALL Issues:** You must fix EVERY failure listed. Do not skip any. If 5 tests failed, 5 tests must be modified.
+            3. **Adapt to Reality:** 
+               - If the API returns a different status code (e.g., 422 instead of 400), update the assertion to match the reality.
+               - If the API returns different JSON keys, update the test to check for the keys that actually exist.
+               - If the API requires specific headers or payload formats that are missing, add them.
+            4. **Preserve Structure:** Keep the existing imports and helper functions unless they are the cause of the error. Do not delete working tests.
+            5. **Output Format:** Return ONLY the complete, valid, executable Python code. Do not include markdown blocks (```python ... ```) or explanations. Just the code.
+            
+            **Thinking Process (Internal):**
+            - Identify which test function corresponds to `nodeid`.
+            - Look at the `message` to understand *why* it failed.
+            - Determine the necessary code change (e.g., `assert response.status_code == 200` -> `assert response.status_code == 201`).
+            - Apply this logic to ALL failures.
+            - Generate the final code.
             """
 
-            response = self.model.generate_content(prompt)
-            fixed_code = response.text.strip()
+            # Use retry mechanism
+            fixed_code = self._generate_with_retry(prompt).strip()
 
             # Clean formatting if Gemini adds markdown
             if fixed_code.startswith("```python"):
                 fixed_code = fixed_code.replace("```python", "", 1)
-            if fixed_code.endswith("```"):
+            if fixed_code.startswith("```"):
                 fixed_code = fixed_code.replace("```", "", 1)
+            if fixed_code.endswith("```"):
+                fixed_code = fixed_code.replace("```", "", 1) # Only replace the last one
+            
+            # Extra cleanup for trailing backticks if the replace above missed (e.g. whitespace)
+            fixed_code = fixed_code.strip("`").strip()
 
             # Overwrite the test file with the healed version
             with open(test_file_path, "w") as f:
@@ -60,7 +103,7 @@ class SelfHealingAgent:
 
             return {
                 "status": "healed",
-                "message": "Test script updated successfully based on execution logs.",
+                "message": "Test script updated. All reported failures have been addressed.",
                 "fixed_code": fixed_code
             }
 
@@ -98,20 +141,46 @@ class SelfHealingAgent:
             **Instructions:**
             1. Identify the root cause of the crash (e.g., undefined variable, unhandled promise, invalid database query).
             2. Provide a 'Suggested Fix' that corrects the code.
-            3. Return the response in JSON format:
-               {{
-                 "explanation": "A brief explanation of why the crash happened.",
-                 "fixed_code_snippet": "The corrected function or code block."
-               }}
+            3. Return the response in JSON format with the following keys:
+               - explanation: A brief explanation of why the crash happened.
+               - recommendation: A recommendation on how to fix it or prevent it.
+               - solution: The corrected function or code block.
+               
+            Example JSON format:
+            {{
+              "explanation": "...",
+              "recommendation": "...",
+              "solution": "..."
+            }}
             """
 
-            response = self.model.generate_content(prompt)
-            cleaned_response = response.text.strip().replace("```json", "").replace("```", "")
+            # Use retry mechanism
+            cleaned_response = self._generate_with_retry(prompt).strip()
+            
+            # Remove markdown formatting if present
+            if cleaned_response.startswith("```json"):
+                cleaned_response = cleaned_response.replace("```json", "", 1)
+            if cleaned_response.startswith("```"):
+                 cleaned_response = cleaned_response.replace("```", "", 1)
+            if cleaned_response.endswith("```"):
+                cleaned_response = cleaned_response.replace("```", "", 1)
+            
+            cleaned_response = cleaned_response.strip()
+            
+            try:
+                analysis_json = json.loads(cleaned_response)
+            except json.JSONDecodeError:
+                # Fallback if JSON parsing fails
+                analysis_json = {
+                    "explanation": cleaned_response,
+                    "recommendation": "Could not parse recommendation.",
+                    "solution": "Could not parse solution."
+                }
             
             # Return the analysis to the Frontend (we do NOT auto-patch user code for safety)
             return {
                 "status": "diagnosed",
-                "analysis": cleaned_response
+                "analysis": analysis_json
             }
 
         except Exception as e:

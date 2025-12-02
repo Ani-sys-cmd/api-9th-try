@@ -1,99 +1,117 @@
-
 import pytest
 import requests
 
-# Define a fixture for the base URL of the API
+# 1. Define a fixture for the base URL
 @pytest.fixture
 def base_url():
-    """Provides the base URL for the API endpoints."""
-    # The 404 errors indicated that the URL path with the '/api' prefix was not found.
-    # Removing the '/api' prefix to match the actual API's base URL.
-    return "http://localhost:5000"
+    """Provides the base URL for the API."""
+    return "http://localhost:3000"
+
+# 2. Write test functions for each endpoint
 
 def test_forgot_password(base_url):
     """
-    Test the POST /forgotPassword endpoint.
+    Tests the POST /forgotPassword endpoint.
+    Assumes a 200 OK response for a successful request.
+    A real-world test might need a payload like {'email': 'user@example.com'}.
     """
+    # FIX: Removed '/api' prefix from the URL. The previous path resulted in a 404 Not Found error.
     url = f"{base_url}/forgotPassword"
     payload = {}
-    # This endpoint likely requires a payload (e.g., email), which might cause a 400 or other error.
-    # However, the immediate failure was 404, which this fix addresses.
-    # A more complete test would provide a valid payload.
     response = requests.post(url, json=payload)
-    # The actual server response for a bad request might be 400, but we fix the 404 first.
-    # For now, let's assume an empty payload might be handled differently, or we are just testing reachability.
-    # Since we can't know the exact success code (200, 201, 204) or error code (400) without seeing the API spec,
-    # we'll keep the test but acknowledge it might need payload data for a true success.
-    # The goal is to fix the immediate 404 failure.
-    assert response.status_code != 404
-    assert response.request.method == 'POST'
-
+    assert response.status_code == 200
+    # Add more assertions here, e.g., checking the response body
+    # assert "instruction" in response.json()["message"]
 
 def test_reset_password(base_url):
     """
-    Test the POST /resetPassword endpoint.
+    Tests the POST /resetPassword endpoint.
+    Assumes a 200 OK response for a successful request.
+    A real-world test would need a token and a new password.
     """
+    # FIX: Removed '/api' prefix from the URL. The previous path resulted in a 404 Not Found error.
     url = f"{base_url}/resetPassword"
     payload = {}
     response = requests.post(url, json=payload)
-    assert response.status_code != 404
-    assert response.request.method == 'POST'
+    assert response.status_code == 200
+    # assert response.json()["message"] == "Password has been reset successfully."
 
 def test_add_task(base_url):
     """
-    Test the POST /addTask endpoint.
+    Tests the POST /addTask endpoint.
+    Assumes a 200 OK or 201 Created for a successful request.
+    A real-world test would provide task details in the payload.
     """
+    # FIX: Removed '/api' prefix from the URL. The previous path resulted in a 404 Not Found error.
     url = f"{base_url}/addTask"
+    # Example of a more realistic payload:
+    # payload = {"title": "My New Task", "description": "Details about the task"}
     payload = {}
     response = requests.post(url, json=payload)
-    assert response.status_code != 404
-    assert response.request.method == 'POST'
+    assert response.status_code in [200, 201]
+    # assert "id" in response.json()
 
 def test_get_task(base_url):
     """
-    Test the GET /getTask endpoint.
+    Tests the GET /getTask endpoint.
+    Assumes a 200 OK for a successful request.
     """
     url = f"{base_url}/getTask"
-    # GET requests typically don't have a JSON payload in the body
     response = requests.get(url)
-    assert response.status_code != 404
-    assert response.request.method == 'GET'
+    assert response.status_code == 200
+    # A more robust test would check if the response body is a list
+    # assert isinstance(response.json(), list)
 
 def test_remove_task(base_url):
     """
-    Test the GET /removeTask endpoint.
-    Note: Using GET for a delete operation is unconventional. DELETE is the standard method.
+    Tests the GET /removeTask endpoint.
+    Note: Using GET to modify/delete data is not a standard REST practice.
+    DELETE or POST would be more conventional.
     """
     url = f"{base_url}/removeTask"
     response = requests.get(url)
-    assert response.status_code != 404
-    assert response.request.method == 'GET'
+    assert response.status_code == 200
+    # assert response.json()["message"] == "Task removed successfully."
 
 def test_login(base_url):
     """
-    Test the POST /login endpoint.
+    Tests the POST /login endpoint.
+    Assumes a 200 OK for a successful request.
+    A real-world test would require credentials in the payload.
     """
+    # FIX: Removed '/api' prefix from the URL. The previous path resulted in a 404 Not Found error.
     url = f"{base_url}/login"
+    # Example of a more realistic payload:
+    # payload = {"email": "user@example.com", "password": "securepassword123"}
     payload = {}
     response = requests.post(url, json=payload)
-    assert response.status_code != 404
-    assert response.request.method == 'POST'
+    assert response.status_code == 200
+    # A more robust test would check for an auth token in the response
+    # assert "token" in response.json()
 
 def test_register(base_url):
     """
-    Test the POST /register endpoint.
+    Tests the POST /register endpoint.
+    Assumes a 200 OK or 201 Created for a successful registration.
+    A real-world test would require user details in the payload.
     """
+    # FIX: Removed '/api' prefix from the URL. The previous path resulted in a 404 Not Found error.
     url = f"{base_url}/register"
+    # Example of a more realistic payload:
+    # payload = {"username": "newuser", "email": "new@example.com", "password": "password"}
     payload = {}
     response = requests.post(url, json=payload)
-    assert response.status_code != 404
-    assert response.request.method == 'POST'
+    assert response.status_code in [200, 201]
+    # assert response.json()["message"] == "User registered successfully."
 
 def test_get_user(base_url):
     """
-    Test the GET /getuser endpoint.
+    Tests the GET /getuser endpoint.
+    Assumes a 200 OK for a successful request.
     """
     url = f"{base_url}/getuser"
     response = requests.get(url)
-    assert response.status_code != 404
-    assert response.request.method == 'GET'
+    assert response.status_code == 200
+    # A more robust test would validate the user data in the response
+    # assert "username" in response.json()
+    # assert "email" in response.json()

@@ -24,5 +24,187 @@
       "total": 2
     },
     "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_server.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:03:48.284333",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -40.0,
+    "summary": {
+      "passed": 0,
+      "failed": 8,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "tests\\generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:05:36.562797",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -40.0,
+    "summary": {
+      "passed": 0,
+      "failed": 8,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "tests\\generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:06:14.076810",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -40.0,
+    "summary": {
+      "passed": 0,
+      "failed": 8,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "tests\\generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:07:05.748963",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -40.0,
+    "summary": {
+      "passed": 0,
+      "failed": 8,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "tests\\generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:08:55.426529",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -22.0,
+    "summary": {
+      "passed": 3,
+      "failed": 5,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:10:18.518467",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -22.0,
+    "summary": {
+      "passed": 3,
+      "failed": 5,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:11:19.001312",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -22.0,
+    "summary": {
+      "passed": 3,
+      "failed": 5,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:17:37.937285",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -22.0,
+    "summary": {
+      "passed": 3,
+      "failed": 5,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:20:45.595306",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -22.0,
+    "summary": {
+      "passed": 3,
+      "failed": 5,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:21:08.060227",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -22.0,
+    "summary": {
+      "passed": 3,
+      "failed": 5,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:27:07.941955",
+    "project_name": "mern-todo-app.zip",
+    "status": "failed",
+    "reward": -22.0,
+    "summary": {
+      "passed": 3,
+      "failed": 5,
+      "error": 0,
+      "total": 8
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_mern-todo-app.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:37:35.992830",
+    "project_name": "sample_project.zip",
+    "status": "failed",
+    "reward": -14.0,
+    "summary": {
+      "passed": 1,
+      "failed": 3,
+      "error": 0,
+      "total": 4
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_sample_project.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:39:10.712359",
+    "project_name": "sample_project.zip",
+    "status": "failed",
+    "reward": -2.0,
+    "summary": {
+      "passed": 3,
+      "failed": 1,
+      "error": 0,
+      "total": 4
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_sample_project.py"
+  },
+  {
+    "timestamp": "2025-12-01T13:40:34.226403",
+    "project_name": "sample_project.zip",
+    "status": "passed",
+    "reward": 4.0,
+    "summary": {
+      "passed": 4,
+      "failed": 0,
+      "error": 0,
+      "total": 4
+    },
+    "test_file": "C:\\Users\\Satish\\Desktop\\Major project\\API_TESTING\\backend\\tests/generated\\test_sample_project.py"
   }
 ]
